@@ -19,7 +19,7 @@ define(['data/PhrasebookAPI', 'underscore', 'hoverboard'], function (API, _, Hov
             },
 
             phrases: function (state, cat) {
-                if ( !state.categories ) {
+                if ( !state || !state.categories ) {
                     return {};
                 }
                 var category;
