@@ -1,0 +1,9 @@
+.idea
+.DS_Store
+node_modules
+bower_components
+npm-debug.log
+/js/third-party
+/css/third-party
+/scss/third-party
+dist

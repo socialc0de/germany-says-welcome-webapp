@@ -1,0 +1,108 @@
+@charset "UTF-8";
+
+// Mixins
+@import "third-party/materialize/components/prefixer";
+@import "third-party/materialize/components/mixins";
+@import "third-party/materialize/components/color";
+
+// Variables;
+@import "components/variables";
+
+// Reset
+@import "third-party/materialize/components/normalize";
+
+// components
+@import "third-party/materialize/components/global";
+@import "third-party/materialize/components/icons-material-design";
+@import "third-party/materialize/components/grid";
+@import "third-party/materialize/components/navbar";
+@import "third-party/materialize/components/roboto";
+@import "third-party/materialize/components/typography";
+@import "third-party/materialize/components/cards";
+@import "third-party/materialize/components/toast";
+@import "third-party/materialize/components/tabs";
+@import "third-party/materialize/components/tooltip";
+@import "third-party/materialize/components/buttons";
+@import "third-party/materialize/components/dropdown";
+@import "third-party/materialize/components/waves";
+@import "third-party/materialize/components/modal";
+@import "third-party/materialize/components/collapsible";
+@import "third-party/materialize/components/chips";
+@import "third-party/materialize/components/materialbox";
+@import "third-party/materialize/components/form";
+@import "third-party/materialize/components/table_of_contents";
+@import "third-party/materialize/components/sideNav";
+@import "third-party/materialize/components/preloader";
+@import "third-party/materialize/components/slider";
+@import "third-party/materialize/components/date_picker/default.scss";
+@import "third-party/materialize/components/date_picker/default.date.scss";
+@import "third-party/materialize/components/date_picker/default.time.scss";
+
+header, main, footer {
+  padding-left: 250px;
+  padding-right: 10px;
+}
+
+@media only screen and (max-width : 992px) {
+  header, main, footer {
+    padding-left: 0;
+  }
+}
+
+header nav li.nav-logo {
+  padding-top: 8px;
+  height:60px;
+}
+
+.side-nav {
+  background-color: $primary-color;
+}
+
+.side-nav li {
+  &:hover {
+    background-color: #333 !important;
+    color: #ff4081 !important;
+    @include transition(background-color .5s .1s);
+  }
+}
+
+.side-nav li.active {
+  background-color: $primary-color !important;
+}
+.side-nav li.active a {
+  color: #ff4081 !important;
+}
+
+.side-nav li a {
+  color: #fff !important;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.9em;
+  &:hover {
+    color: #ff4081 !important;
+    @include transition(color .5s .1s);
+  }
+}
+
+.side-nav a.gsw-brand {
+  width:100%;
+  position: absolute;
+  bottom: 80px;
+  text-align: center;
+  line-height: normal;
+  color: #337ab7;
+  opacity: 20;
+  &:hover {
+    text-decoration: underline;
+    color: #ff4081 !important;
+    @include transition(color .5s .1s);
+  }
+}
+
+div.main-container {
+  display: none;
+};
+
+div.main-container.active {
+  display: inline;
+};
