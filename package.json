@@ -1,0 +1,36 @@
+{
+  "name": "refugee-welcome-app-js",
+  "version": "9.0.1",
+  "description": "Germany Says Welcome App / Javascript variant",
+  "main": "index.html",
+  "dependencies": {
+    "html2hscript": "^1.2.1"
+  },
+  "devDependencies": {
+    "bower": "^1.6.5",
+    "browserify": "^12.0.1",
+    "gulp": "^3.9.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.1.0",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/socialc0de/refugees-welcome-app-js.git"
+  },
+  "keywords": [
+    "Refugees",
+    "#germanysayswelcome",
+    "Refugees",
+    "Welcome"
+  ],
+  "author": "Germany Says Welcome Team",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/socialc0de/refugees-welcome-app-js/issues"
+  },
+  "homepage": "https://github.com/socialc0de/refugees-welcome-app-js#readme"
+}
