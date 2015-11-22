@@ -29,7 +29,7 @@ define(['Component', 'handlebars'], function(Component, handlebars) {
         _.bind(Component.prototype.attach, this)(oldNode, newNode);
         var self = this;
         $(newNode).on('change', function() {
-            self.asylumStatus.select(self.lang);
+            self.asylumStatus.select(self.status);
         });
     };
 
