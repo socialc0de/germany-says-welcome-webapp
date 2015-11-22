@@ -164,8 +164,8 @@ define(['underscore', 'html2hscript', 'virtual-dom'],
                 var _state = $.extend(true, {}, state);
                 var _props = $.extend(true, {}, props);
                 var html = component.render(_state, _props);
-                if (html === undefined) {
-                    throw new Error("Need at least one HTML string as return value from render() to render Component.");
+                if (!html) {
+                    return tree;
                 }
                 var targetElement = $(selector);
                 var newTree = undefined;

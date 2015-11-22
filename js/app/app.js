@@ -23,18 +23,22 @@ require.config(
 );
 
 require(['domReady!',
-        'model/BrowserLanguage',
         'model/AsylumStatus',
+        'model/BrowserLanguage',
+        'model/Phrasebook',
         'Router', 'data/Routes',
         'view/MainView',
+        'view/PhrasebookView',
         'view/SideNavView',
         'view/SettingsView'],
     function (domReady,
-              BrowserLanguage,
               AsylumStatus,
+              BrowserLanguage,
+              Phrasebook,
               Router,
               routes,
               MainView,
+              PhrasebookView,
               SideNavView,
               SettingsView) {
 
@@ -42,8 +46,9 @@ require(['domReady!',
 
         // Setup model.
         var router = new Router(routes);
-        var browserLanguage = new BrowserLanguage();
         var asylumStatus = new AsylumStatus();
+        var browserLanguage = new BrowserLanguage();
+        var phrasebook = new Phrasebook();
 
         // Setup views.
         var mainView = new MainView();
@@ -58,10 +63,16 @@ require(['domReady!',
         settingsView.subscribe(browserLanguage, 'language');
         settingsView.subscribe(asylumStatus, 'status');
 
+        var phrasebookView = new PhrasebookView('#phrasebook', browserLanguage, phrasebook, router);
+        phrasebookView.subscribe(router, 'router');
+        phrasebookView.subscribe(browserLanguage, 'language');
+        phrasebookView.subscribe(phrasebook, 'phrasebook');
+
         // Start the app.
         router.update();
         browserLanguage.init();
         asylumStatus.init();
+        phrasebook.init();
 
     });
 
