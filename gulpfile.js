@@ -40,6 +40,11 @@ gulp.task('deps_jquery', function () {
     ]).pipe(gulp.dest('js/third-party'));
 });
 
+gulp.task('deps_jscookie', function () {
+    gulp.src(['bower_components/js-cookie/src/js.cookie.js'])
+        .pipe(gulp.dest('js/third-party'));
+});
+
 gulp.task('deps_materialize', function () {
     gulp.src(['bower_components/Materialize/dist/js/materialize.js',
         'bower_components/hammerjs/hammer.js'])
@@ -82,6 +87,7 @@ gulp.task('deps', [
     'deps_html2hscript',
     'deps_hoverboard',
     'deps_jquery',
+    'deps_jscookie',
     'deps_materialize',
     'deps_requirejs',
     'deps_underscore',

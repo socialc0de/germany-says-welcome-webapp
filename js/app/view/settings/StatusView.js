@@ -18,20 +18,22 @@ define(['Component', 'view/settings/StatusRadio', 'data/AsylumStatusValues'], fu
         _.bind(Component.prototype.setState, this)(state, namespace);
         var self = this;
         if (namespace && namespace == 'status' ) {
-            _.each(statusValues, function (status) {
-                var selector = '#settings-status-select p[data-status=' + status + "]";
-                var child = new StatusRadio(selector, status, self.asylumStatus);
-                child.subscribe(self.asylumStatus, "status");
-                child.subscribe(self.browserLanguage, "language");
-                self.addChild(child, status);
-            });
+            if ( this.getChildren() && !this.getChildren()['arrival']  ) {
+                _.each(statusValues, function (status) {
+                    var selector = '#settings-status-select p[data-status=' + status + "]";
+                    var child = new StatusRadio(selector, status, self.asylumStatus);
+                    child.subscribe(self.asylumStatus, "status");
+                    child.subscribe(self.browserLanguage, "language");
+                    self.addChild(child, status);
+                });
+            }
         }
     };
 
     function StatusView(selector, asylumStatus, browserLanguage) {
         Component.call(this, selector);
         this.asylumStatus = asylumStatus;
-        this.browserLanguage = browserLanguage
+        this.browserLanguage = browserLanguage;
     }
 
     return StatusView;

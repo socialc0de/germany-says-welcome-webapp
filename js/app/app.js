@@ -6,6 +6,7 @@ require.config(
             'hoverboard': "../third-party/hoverboard",
             'html2hscript': '../third-party/html2hscript',
             'i18next': "../third-party/i18next",
+            'js-cookie': "../third-party/js.cookie",
             'underscore': "../third-party/underscore",
             'virtual-dom': '../third-party/virtual-dom',
 
