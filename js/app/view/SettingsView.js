@@ -1,4 +1,4 @@
-define(['underscore', 'Component', 'view/settings/LanguageView', 'view/settings/LanguageView'], function (_, Component, LanguageView, StatusView) {
+define(['underscore', 'Component', 'view/settings/LanguageView', 'view/settings/StatusView'], function (_, Component, LanguageView, StatusView) {
 
     var $ = window.$;
 
@@ -34,7 +34,7 @@ define(['underscore', 'Component', 'view/settings/LanguageView', 'view/settings/
             this.addChild(this.languageSection);
         }
         if ( !this.statusSection ) {
-            this.statusSection = new StatusView('#settings-status-select', this.asylumStatus);
+            this.statusSection = new StatusView('#settings-status-select', this.asylumStatus, this.browserLanguage);
             this.statusSection.subscribe(this.asylumStatus, 'status');
             this.addChild(this.statusSection);
         }

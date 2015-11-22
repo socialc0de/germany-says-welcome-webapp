@@ -1,5 +1,7 @@
-define(['underscore', 'hoverboard'], function (_, Hoverboard) {
+define(['underscore', 'hoverboard', 'data/AsylumStatusValues'], function (_, Hoverboard, StatusValues) {
     var instance = null;
+
+    var statusValues = StatusValues.statusValues;
 
     AsylumStatus.prototype.statusValues = ['arrival', 'application', 'integration'];
 
@@ -7,11 +9,11 @@ define(['underscore', 'hoverboard'], function (_, Hoverboard) {
         var instance = Hoverboard({
 
             init: function(state) {
-                return { status: "arrival" };
+                return { selected: "arrival" };
             },
 
             select: function (state, status) {
-                return {status: status};
+                return {selected: status};
             }
 
         });
