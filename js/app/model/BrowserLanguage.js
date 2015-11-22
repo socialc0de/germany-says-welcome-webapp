@@ -10,6 +10,7 @@ define(['underscore', 'hoverboard'], function (_, Hoverboard) {
 
         var i18nextOptions = {
             useCookie: true,
+            cookieName: 'gsw-browser-language',
             cookieExpirationTime: 525600, // 365 days in minutes
             fallbackLng: 'de',
             preload: ['ar', 'de', 'en', 'fr'],

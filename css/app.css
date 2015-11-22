@@ -8556,3 +8556,10 @@ div.main-container {
 
 div.main-container.active {
   display: inline; }
+
+div#phrasebook_categories > a > div.chip {
+  margin: 3px; }
+
+div#phrasebook_categories > a > div.chip.active {
+  background-color: #003171;
+  color: white; }
