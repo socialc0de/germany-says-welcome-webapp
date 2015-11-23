@@ -1,5 +1,5 @@
 define(['underscore', 'html2hscript', 'virtual-dom'],
-    function (_, parser, VirtualDOM, hoverboard) {
+    function (_, parser, VirtualDOM) {
 
         var $ = window.$;
         var h = VirtualDOM.h;
@@ -36,18 +36,76 @@ define(['underscore', 'html2hscript', 'virtual-dom'],
             var setter = function (state) {
                 this.setState(state, namespace);
             };
-            return hoverboard.getState($.proxy(setter, this));
+            var unsubscribe = hoverboard.getState(_.bind(setter, this));
+            namespace = namespace || null;
+            this.unsubscribeFn[namespace] = unsubscribe;
+            return unsubscribe;
         };
 
+        Component.prototype.unsubscribe = function (namespace) {
+            namespace = namespace || null;
+            var unsubscribe = this.unsubscribeFn[namespace];
+            if (unsubscribe) {
+                delete this.unsubscribeFn[namespace];
+                unsubscribe();
+            }
+        };
+
+        /**
+         * Attaches the node to the DOM document. Called once per Component
+         * after the DOM node is created and before it is inserted into the
+         * DOM document tree.
+         *
+         * Override this method to attach event handlers. Don't forget to
+         * call the overridden method from your method, e.g.:
+         *
+         * Component.prototype.attach.call(this, oldNode, newNode);
+         *
+         * @param oldNode the old node to be replaced by the component
+         * @param newNode the new node representing the component in DOM.
+         */
         Component.prototype.attach = function (oldNode, newNode) {
+            if (this.replacedNodes) {
+                return;
+            }
             var id = $(oldNode).prop('id');
             if (!_.isEmpty(id)) {
                 newNode.id = id;
             }
-            $(oldNode).replaceWith(newNode);
+            this.replacedNodes = $(oldNode).replaceWith(newNode);
         };
 
-        Component.prototype.update = function (node, newNode) {
+        /**
+         * Detaches the component from the DOM tree and removes all event handlers, jQuery data
+         * and flux subscriptions. Override this method if you need to detach child components.
+         */
+        Component.prototype.detach = function () {
+            if (!this.replacedNodes) {
+                return;
+            }
+            var selector = this._tree.getSelector();
+            var id = $(selector).prop('id');
+            $(selector).off();
+            $(selector).removeData();
+            $(selector).replaceWith(this.replacedNodes);
+            if (id) {
+                this.replacedNodes.id = id;
+            }
+            this.replacedNodes = undefined;
+            var namespaces = _.keys(this.unsubscribeFn);
+            var self = this;
+            _.each(namespaces, function (namespace) {
+                self.unsubscribe(namespace);
+            });
+        };
+
+        /**
+         * Called whenever the Component has been rendered. Override this method
+         * if you need to do something after the component has been rendered.
+         *
+         * @param node the DOM node representing the component in the DOM tree.
+         */
+        Component.prototype.update = function (node) {
         };
 
         /**
@@ -61,8 +119,7 @@ define(['underscore', 'html2hscript', 'virtual-dom'],
          * @param namespace an optional namespace
          */
         Component.prototype.setState = function (newState, namespace) {
-            _mergeStates(this.state, newState, namespace);
-            this._tree.setState(this.state);
+            this._tree.setState(newState, namespace);
         };
 
         /**
@@ -74,25 +131,7 @@ define(['underscore', 'html2hscript', 'virtual-dom'],
          * @see setState
          */
         Component.prototype.replaceState = function (newState, namespace) {
-            _resetState(this.state, namespace);
-            _mergeStates(this.state, newState, namespace);
-            this._tree.render(this.state);
-        };
-
-        Component.prototype.getChildren = function () {
-            return this._tree.getChildren();
-        };
-
-        Component.prototype.addChild = function (child, id) {
-            return this._tree.addChild(child, id);
-        };
-
-        Component.prototype.removeChild = function (id) {
-            return this._tree.removeChild(id);
-        };
-
-        Component.prototype.removeAllChildren = function (id) {
-            return this._tree.removeAllChildren();
+            this._tree.replaceState(newState, namespace);
         };
 
         /**
@@ -101,45 +140,50 @@ define(['underscore', 'html2hscript', 'virtual-dom'],
          * @param namespace
          */
         Component.prototype.resetState = function (namespace) {
-            _resetState(this.state, namespace);
-            this._tree.render(this.state);
+            this._tree.resetState(namespace);
         };
 
-        function _mergeStates(state, newState, namespace) {
-            if (namespace) {
-                if (!state[namespace]) {
-                    state[namespace] = {};
-                }
-                $.extend(state[namespace], newState);
-            } else {
-                $.extend(state, newState);
-            }
-            return state;
-        }
-
-        function _resetState(state, namespace) {
-            if (namespace) {
-                state[namespace] = {};
-            } else {
-                state = {};
-            }
-            return state;
-        }
 
         var _Tree = function (component, selector, props) {
 
-            var children = {};
             var state = {};
             var tree = undefined;
 
-            function cleanState(state) {
+            /* State helper functions */
+
+            var _cleanState = function() {
                 state = state || {};
                 return JSON.parse(JSON.stringify(state));
-            }
+            };
 
+            var _mergeStates = function (state, newState, namespace) {
+                if (namespace) {
+                    if (!state[namespace]) {
+                        state[namespace] = {};
+                    }
+                    $.extend(state[namespace], newState);
+                } else {
+                    $.extend(state, newState);
+                }
+                return state;
+            };
 
-            this.html = function () {
-                return tree;
+            var _resetState = function (state, namespace) {
+                if (namespace) {
+                    state[namespace] = {};
+                } else {
+                    state = {};
+                }
+                return state;
+            };
+
+            var _replaceState = function (state, newState, namespace) {
+                if ( namespace ) {
+                    state[namespace] = $.extend({}, newState);
+                } else {
+                    state = $.extend({}, newState);
+                }
+                return state;
             };
 
             this.getSelector = function () {
@@ -150,12 +194,22 @@ define(['underscore', 'html2hscript', 'virtual-dom'],
                 return $.extend(true, {}, state);
             };
 
-            this.setState = function (newState) {
+            this.resetState = function (namespace) {
+                state = _resetState(state, namespace);
+                this.setState({}, namespace);
+            };
+
+            this.replaceState = function(newState, namespace) {
+                state = _replaceState(state, newState, namespace);
+                this.setState({}, namespace);
+            }
+
+            this.setState = function (newState, namespace) {
                 var _setStateFn = this.setState;
                 this.setState = function () {
                     throw Error("The state of this component is locked to prevent recursive state changes.");
                 };
-                state = newState;
+                state = _mergeStates(state, newState, namespace);
                 this.render();
                 this.setState = _setStateFn;
             };
@@ -196,59 +250,6 @@ define(['underscore', 'html2hscript', 'virtual-dom'],
                 return tree;
             };
 
-            this.getChildren = function () {
-                return children;
-            };
-
-            /**
-             * Adds a child component to the tree. If "id" is omitted a new automatic id is created.
-             * @param child
-             * @param id
-             * @returns {*|number} the id of the component.
-             * @throws Throws an error if "child" is not a component.
-             */
-            this.addChild = function (child, id) {
-                if (id === undefined) {
-                    id = ID++;
-                    while (children[id]) {
-                        id++;
-                    }
-                }
-                if (!isComponent(child)) {
-                    throw new Error("Unable to add " + JSON.stringify(child) + " as child component: Not a Component object.");
-                }
-                if (!children[id]) {
-                    children[id] = child;
-                    var setState = _.bind(child.setState, child);
-                    setState({});
-                    window.setTimeout(setState, 0);
-                }
-                return id;
-            };
-
-            /**
-             * Removes a child component.
-             * @param id
-             * @returns {*}
-             */
-            this.removeChild = function (id) {
-                var child = children[id];
-                if (!child) {
-                    return null;
-                }
-                delete children[id];
-                return child;
-            };
-
-            /**
-             * Removes all child components from the component.
-             *
-             * @param id
-             */
-            this.removeAllChildren = function (id) {
-                children = {};
-            };
-
             /**
              * Performs duck type check of 'obj' for Component interface. Components must have a "_tree" property
              * which has methods "render", "html" and "setState".
@@ -271,8 +272,8 @@ define(['underscore', 'html2hscript', 'virtual-dom'],
                 throw new Error("Need a DOM element selector to render Component.");
             }
             this._tree = new _Tree(this, selector, props || {});
-            this.subscriptions = {};
-            this.state = {};
+            this.unsubscribeFn = {};
+            this.replacedNodes = undefined;
         }
 
         return Component;

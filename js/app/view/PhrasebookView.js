@@ -13,31 +13,39 @@ define(['Component', 'view/phrasebook/CategoriesView', 'view/phrasebook/PhrasesV
 
     PhrasebookView.prototype.setState = function (state, namespace) {
         Component.prototype.setState.call(this, state, namespace);
-        if (this.getChildren() && !this.getChildren()['categories']) {
-            var child = new CategoriesView('#phrasebook_categories');
-            child.subscribe(this.phrasebook, 'phrasebook');
-            child.subscribe(this.browserLanguage, 'language');
-            child.subscribe(this.router, 'router');
-            this.addChild(child, 'categories');
-        }
-        if (this.getChildren() && !this.getChildren()['phrases']) {
-            var child = new PhrasesView('#phrasebook_phrases');
-            child.subscribe(this.phrasebook, 'phrasebook');
-            child.subscribe(this.browserLanguage, 'language');
-            child.subscribe(this.router, 'router');
-            this.addChild(child, 'phrases');
-        }
-        if (namespace == 'language' && state && state.selected) {
-            state.selected = state.selected == 'de' ? "en" : state.selected;
-            if (state.selected != this.lang) {
-                this.lang = state.selected;
-                this.phrasebook.init(this.lang);
-            }
-        }
-        if (namespace == 'router' && state && state.params.cat) {
-            this.phrasebook.phrases(state.params.cat);
-        }
+        if (!state) return;
+        switch (namespace) {
+            case 'phrasebook':
+                if (!this.categoriesView) {
+                    var child = new CategoriesView('#phrasebook_categories');
+                    child.subscribe(this.phrasebook, 'phrasebook');
+                    child.subscribe(this.browserLanguage, 'language');
+                    child.subscribe(this.router, 'router');
+                    this.categoriesView = child;
+                }
+                if (!this.phrasesView) {
+                    var child = new PhrasesView('#phrasebook_phrases');
+                    child.subscribe(this.phrasebook, 'phrasebook');
+                    child.subscribe(this.browserLanguage, 'language');
+                    child.subscribe(this.router, 'router');
+                    this.phrasesView = child;
+                }
+                break;
+            case 'language':
+                if (state.selected) {
+                    state.selected = state.selected == 'de' ? "en" : state.selected;
+                    if (state.selected != this.lang) {
+                        this.lang = state.selected;
+                        this.phrasebook.init(this.lang);
+                    }
+                }
+                break;
+            case 'router':
+                if (state.params.cat) {
+                    this.phrasebook.phrases(state.params.cat);
+                }
 
+        }
     };
 
 
