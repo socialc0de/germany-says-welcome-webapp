@@ -31,12 +31,10 @@ define(['underscore', 'Component', 'view/settings/LanguageView', 'view/settings/
         if ( !this.languageSection ) {
             this.languageSection = new LanguageView('#settings-lang-select', this.browserLanguage);
             this.languageSection.subscribe(this.browserLanguage, 'language');
-            this.addChild(this.languageSection);
         }
         if ( !this.statusSection ) {
             this.statusSection = new StatusView('#settings-status-select', this.asylumStatus, this.browserLanguage);
             this.statusSection.subscribe(this.asylumStatus, 'status');
-            this.addChild(this.statusSection);
         }
     };
 

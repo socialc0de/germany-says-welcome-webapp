@@ -49,6 +49,10 @@ require(['domReady!',
         var asylumStatus = new AsylumStatus();
         var browserLanguage = new BrowserLanguage();
         var phrasebook = new Phrasebook();
+        router.update();
+        browserLanguage.init();
+        asylumStatus.init();
+        phrasebook.init();
 
         // Setup views.
         var mainView = new MainView();
@@ -67,12 +71,6 @@ require(['domReady!',
         phrasebookView.subscribe(router, 'router');
         phrasebookView.subscribe(browserLanguage, 'language');
         phrasebookView.subscribe(phrasebook, 'phrasebook');
-
-        // Start the app.
-        router.update();
-        browserLanguage.init();
-        asylumStatus.init();
-        phrasebook.init();
 
     });
 
