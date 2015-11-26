@@ -4,8 +4,7 @@ define(['data/FAQAPI', 'underscore', 'hoverboard'], function (API, _, Hoverboard
 
     function FAQ() {
         var instance = Hoverboard({
-            init: function (state, lang, status) {
-                lang = lang || "en";
+            init: function (state, status) {
                 status = status || 1;
                 var url = API.categoryurl;
                 $.get(url).done(function (result) {
