@@ -1,4 +1,4 @@
-define(['Component', 'view/faq/CategoriesView', 'view/faq/ItemView'], function (Component, CategoriesView, ItemView) {
+define(['Component', 'view/faq/CategoriesView', 'view/faq/ItemView', 'data/AsylumStatusValues'], function (Component, CategoriesView, ItemView, AsylumStatusValues) {
 
     FAQView.prototype = Object.create(Component.prototype);
 
@@ -24,10 +24,18 @@ define(['Component', 'view/faq/CategoriesView', 'view/faq/ItemView'], function (
             case 'language':
                 if (state.selected) {
                     var selected = state.selected == 'de' ? "en" : state.selected;
-                    GSW.FAQ.init(selected, "1");
                     this.categoriesView.notify({ selected: selected}, "language");
                     this.itemView.notify({ selected: selected}, "language");
                     return this.state({selected: selected}, "language");
+                }
+                break;
+            case 'status':
+                if (state.selected) {
+                    var selected = AsylumStatusValues.statusValues.indexOf(state.selected)+1;
+                    GSW.FAQ.init(selected);
+                    this.categoriesView.notify({ selected: selected}, "status");
+                    this.itemView.notify({ selected: selected}, "status");
+                    return this.state({selected: selected}, "status");
                 }
                 break;
             case 'router':
