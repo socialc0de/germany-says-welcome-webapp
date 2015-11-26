@@ -54,6 +54,13 @@ require(['domReady!',
         asylumStatus.init();
         phrasebook.init();
 
+        window.GSW = {
+            AsylumState: asylumStatus,
+            BrowserLanguage: browserLanguage,
+            Phrasebook: phrasebook,
+            Router: router
+        };
+
         // Setup views.
         var mainView = new MainView();
         mainView.subscribe(router, "router");
@@ -67,7 +74,7 @@ require(['domReady!',
         settingsView.subscribe(browserLanguage, 'language');
         settingsView.subscribe(asylumStatus, 'status');
 
-        var phrasebookView = new PhrasebookView('#phrasebook', browserLanguage, phrasebook, router);
+       var phrasebookView = new PhrasebookView('#phrasebook', browserLanguage, phrasebook, router);
         phrasebookView.subscribe(router, 'router');
         phrasebookView.subscribe(browserLanguage, 'language');
         phrasebookView.subscribe(phrasebook, 'phrasebook');

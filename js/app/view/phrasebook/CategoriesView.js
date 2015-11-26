@@ -4,18 +4,11 @@ define(['Component', 'underscore'], function (Component, _) {
 
     CategoriesView.prototype.render = function (state) {
         var html = '<div>';
-        if ( !state || !state.phrasebook || !state.router || !state.language ) {
-            return false;
-        }
-        var phrasebook = state.phrasebook
-        var router = state.router;
-        var lang = state.language.selected || "en";
+        var phrasebook = state.phrasebook || {};
+        var lang = (state.language && state.language.selected) || "en";
         lang = lang == "de" ? "en" : lang;
-        var selected = 1;
-        if (router.params && router.params.cat) {
-            selected = router.params.cat;
-        }
-        if (phrasebook && !phrasebook.loading && phrasebook.categories) {
+        var selected = phrasebook.cat || 1;
+        if (!phrasebook.loading && phrasebook.categories) {
             var self = this;
             _.each(phrasebook.categories, function (cat) {
                 html += '<a href="#phrasebook/' +
@@ -33,7 +26,6 @@ define(['Component', 'underscore'], function (Component, _) {
 
     function CategoriesView(selector) {
         Component.call(this, selector);
-        this.selected = "";
     }
 
     return CategoriesView;

@@ -3,12 +3,9 @@ define(['Component', 'underscore'], function (Component, _) {
     PhrasesView.prototype = Object.create(Component.prototype);
 
     PhrasesView.prototype.render = function (state) {
-        if (!state || !state.phrasebook || !state.language || !state.router || !state.router.parts || state.router.parts[0] != 'phrasebook') {
-            return false;
-        }
         var html = '<div>';
-        var phrasebook = state.phrasebook;
-        var lang = state.language.selected || "en";
+        var phrasebook = state.phrasebook || {};
+        var lang = (state.language && state.language.selected) || "en";
         lang = lang == "de" ? "en" : lang;
         if (phrasebook.phrases) {
             var self = this;

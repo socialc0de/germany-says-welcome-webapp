@@ -12,49 +12,40 @@ define(['Component', 'view/phrasebook/CategoriesView', 'view/phrasebook/PhrasesV
     };
 
     PhrasebookView.prototype.setState = function (state, namespace) {
-        Component.prototype.setState.call(this, state, namespace);
-        if (!state) return;
         switch (namespace) {
             case 'phrasebook':
-                if (!this.categoriesView) {
-                    var child = new CategoriesView('#phrasebook_categories');
-                    child.subscribe(this.phrasebook, 'phrasebook');
-                    child.subscribe(this.browserLanguage, 'language');
-                    child.subscribe(this.router, 'router');
-                    this.categoriesView = child;
+                if ( state.categories ) {
+                    this.categoriesView.notify({ categories: state.categories}, 'phrasebook');
                 }
-                if (!this.phrasesView) {
-                    var child = new PhrasesView('#phrasebook_phrases');
-                    child.subscribe(this.phrasebook, 'phrasebook');
-                    child.subscribe(this.browserLanguage, 'language');
-                    child.subscribe(this.router, 'router');
-                    this.phrasesView = child;
+                if ( state.phrases ) {
+                    this.phrasesView.notify({phrases: state.phrases}, 'phrasebook');
                 }
-                break;
+                return this.state(state, "phrasebook");
             case 'language':
                 if (state.selected) {
-                    state.selected = state.selected == 'de' ? "en" : state.selected;
-                    if (state.selected != this.lang) {
-                        this.lang = state.selected;
-                        this.phrasebook.init(this.lang);
-                    }
+                    var selected = state.selected == 'de' ? "en" : state.selected;
+                    GSW.Phrasebook.init(selected);
+                    this.categoriesView.notify({ selected: selected}, "language");
+                    this.phrasesView.notify({ selected: selected}, "language");
+                    return this.state({selected: selected}, "language");
                 }
                 break;
             case 'router':
-                if (state.params.cat) {
-                    this.phrasebook.phrases(state.params.cat);
+                if (state.parts && state.parts[0] == 'phrasebook' && state.params && state.params.cat) {
+                    GSW.Phrasebook.phrases(state.params.cat);
+                    this.categoriesView.notify({ cat: state.params.cat }, 'phrasebook');
+                    return this.state({ cat: state.params.cat }, 'phrasebook');
                 }
-
+                break;
         }
+        return false;
     };
 
 
-    function PhrasebookView(selector, browserLanguage, phrasebook, router) {
+    function PhrasebookView(selector) {
         Component.call(this, selector);
-        this.phrasebook = phrasebook;
-        this.browserLanguage = browserLanguage;
-        this.router = router;
-        this.lang = "";
+        this.categoriesView = new CategoriesView('#phrasebook_categories');
+        this.phrasesView = new PhrasesView('#phrasebook_phrases');
     }
 
     return PhrasebookView;
