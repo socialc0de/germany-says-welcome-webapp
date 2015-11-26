@@ -26,26 +26,28 @@ require(['domReady!',
         'model/AsylumStatus',
         'model/BrowserLanguage',
         'model/Phrasebook',
-        'model/FAQ',
+        //'model/FAQ',
         'Router', 'data/Routes',
         'view/MainView',
         'view/PhrasebookView',
-        'view/FAQView',
+        //'view/FAQView',
         'view/SideNavView',
         'view/SettingsView'],
     function (domReady,
               AsylumStatus,
               BrowserLanguage,
               Phrasebook,
-              FAQ,
+              //FAQ,
               Router,
               routes,
               MainView,
               PhrasebookView,
-              FAQView,
+              //FAQView,
               SideNavView,
               SettingsView) {
 
+        // This is a nasty patch because Materialize does not provide a way to toggle collapsibles.
+        // See https://github.com/Dogfalo/materialize/issues/486.
         addCollapsibleToggle();
 
         // Setup model.
@@ -53,12 +55,12 @@ require(['domReady!',
         var asylumStatus = new AsylumStatus();
         var browserLanguage = new BrowserLanguage();
         var phrasebook = new Phrasebook();
-        var faq = new FAQ();
+        //var faq = new FAQ();
         router.update();
         browserLanguage.init();
         asylumStatus.init();
         phrasebook.init();
-        faq.init();
+        //faq.init();
 
         window.GSW = {
             AsylumState: asylumStatus,
@@ -85,13 +87,14 @@ require(['domReady!',
         phrasebookView.subscribe(browserLanguage, 'language');
         phrasebookView.subscribe(phrasebook, 'phrasebook');
 
-        var faqView = new FAQView('#faq', browserLanguage, asylumStatus, faq, router);
+       /* var faqView = new FAQView('#faq', browserLanguage, asylumStatus, faq, router);
         faqView.subscribe(router, 'router');
         faqView.subscribe(browserLanguage, 'language');
-        faqView.subscribe(faq, 'faq');
+        faqView.subscribe(faq, 'faq');*/
     });
 
 function addCollapsibleToggle() {
+    // See https://github.com/Dogfalo/materialize/issues/486.
     window.$.fn.extend({
         collapsible: (function() {
             _collapsible = jQuery.fn.collapsible;

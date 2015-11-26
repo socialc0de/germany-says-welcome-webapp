@@ -44,34 +44,44 @@ and `css/third-party`. Automatically generated code and content is not kept in t
 `.gitignore`.
 
 A good starting point for development is `index.html`. After it has setup all stylesheets and loaded all Javascript
-dependencies it loads the main Javascript file `js/app/index.js`.
+dependencies it loads the main Javascript file `js/app/app.js`.
 
     [...]
-    <script data-main="js/app/index.js" src="bower_components/requirejs/require.js"></script>
+    <script data-main="js/app/app.js" src="js/third-party/require.js"></script>
     </body>
     </html>
 
-In the main Javascript file the environment for *requirejs* is setup and finally a data model for the language is created (line #1):
+In the main Javascript file the environment for *requirejs* is setup and finally a data model is created (line #1):
  
-     #1 var browserLanguage = new BrowserLanguage();
-     #2 var languageSelect = new LanguageSelect();
-     #3 languageSelect.subscribe(browserLanguage);
-     #4 browserLanguage.init('index');
-     
-At line #2 the LanguageSelect component is created which is the tiny language picker in the upper right corner of the website.
-It lets the user choose in which language the texts on the page are shown. The language is German by default. If the
-user chooses another language, the language is kept through the entire page and through all later visits by use of cookies.
+        #1 var router = new Router(routes);
+        #2 var asylumStatus = new AsylumStatus();
+        #3 var browserLanguage = new BrowserLanguage();
+        #4 var phrasebook = new Phrasebook();
+            ...
+        #5 browserLanguage.init();
+            ...
+        #6 var sideNav = new SideNavView("#slide-out");
+        #7 sideNav.subscribe(browserLanguage, 'language');
+             
+At line #6 the SideNav component is created which is the left hand main menu of the app and is translated to the 
+user's language. In the settings part of the app a language picker can be used to change the current language. 
+The language is German by default. If the user chooses another language, the language is kept through the entire 
+app and through all later visits by use of cookies.
 
 Since `BrowserLanguage` is a <i>Flux</i> enabled data model (powered by <i>Hoverboard</i>), components 
-like `LanguageSelect` can subscribe to changes and alter their appearance according to the state of the data model. In
-line #3 the `LanguageSelect` component subscribes to `BrowserLanguages`.
+like `SideNavView` can subscribe to changes and alter their appearance according to the state of the data model. In
+line #7 the `SideNavView` component subscribes to `BrowserLanguage`.
   
-Before line #4 the `BrowserLanguage` data model is still empty and the language picker does not have any languages to 
-pick from. Line #4 initializes the `BrowserLanguage` data model by providing `index` as the translation context. Accoring 
-to the context, the translation is loaded from `locales/<LANGUAGE>/index.json`.
+Before line #5 the `BrowserLanguage` data model is still empty and the language picker in the settings section does not 
+have any languages to pick from. Line #5 initializes the `BrowserLanguage` data model. The translation is loaded from files
+at `locales/<LANGUAGE>/...`.
+
+As soon as `SideNavView` subscribes to `BrowserLanguage` it is provided with a copy of the current state of `BrowserLanguage`
+and renders it appearance in the selected language. If `BrowserLanguage` changes its state e.g. through a change in
+the settings section, `SideNavView` is notified about the change and re-renders its content.
 
 Flux data model
-----------------------------
+---------------
 
 To provide a data model with a Flux implementation from Hoverboard you need to create a module with this general structure:
 
@@ -186,4 +196,125 @@ Finally you can use it all together:
     hello.subscribe(user);
     user.greet("Jan");
 
+Component properties and state
+------------------------------
+
+Components have have their own state and can have optional properties. Both are provided as a copy to the `render()` method:
+
+    Component.prototype.render = function(state, props) {...};
+    
+The difference between properties and state is that properties cannot be changed after the component is created. Properties
+are ready-only throughout the whole lifecycle of the component. They are provided as an object to the component 
+through the constructor:
+
+    function Component(selector, properties) {}
+
+The state is mutable by use of the `notify()` method or by subscribing to a Flux data model via `subscribe()`. Actually, 
+the `notify()` method is the only available entry point for state changes from the outside since the `subscribe()` method
+encapsulates `notify()` in a way that it is called with the new state whenever the Flux data model is changed.
+
+The `notify()` method (and `subscribe()`) take an optional second argument `namespace` which is used as an identifier
+for the part of the state intended to change. This helps separating state updates from different Flux data 
+models. The state object which is finally passed to the `render()` method is an object with one key for each namespace. 
+For example:
+ 
+    myComponent.notify( { lang: "de" }, "language");
+    myComponent.notify( { selected: "my Choice" }, "selection");
+    
+Results in:
+
+    myComponent.prototype.render = function(state, props) {
+        // state = { language: { lang: "de" }, selection: { selected: "my Choice" } }
+        ...
+    };
+    
+Note that `notify()` is an asynchronous method which returns immediately and leaves the rendering for later execution 
+(using `window.setTimeout(..., 0)`).
+
+The actual state used when rendering the component is created in the method `setState(state, namespace)` which
+is called with the exact same arguments as `notify()` has been called with. This method returns the complete state 
+which is then passed to `render(state, props)` as the first argument.
+  
+You can override this method to alter the state according to your needs or do other things whith the state. The return 
+value of the method *must* be the complete state including all namespaces. There is a useful helper method available - 
+`state(state, namespace)` which merges the passed 1st argument into the namespace of the current component's state.
+  
+    myComponent.prototype.setState = function(newState, namespace) {
+        return this.state(newState, namespace);
+    };
+
+In the example above the `newState` object is merged into `namespace` of the current state. The result returned as the new
+state of the component. Use this helper method as often as you can.
+
+There is a special case for the return value of `setState()`. If you return a falsy value, the current state is left unchanged.
+
+    myComponent.prototype.setState = function(newState, namespace) {
+        return false; // Current state is unchanged.
+    };
+
+The method `render()` is only called when the current state is actually changed. Thus, in the example above no rendering
+is performed for optimization. Because a component has an empty state in the beginning (`undefined`) it is rendered only 
+when there is an actual non-empty state. 
+
+Component life-cycle
+--------------------
+
+Components follow a life-cycle pattern, the three stages are "attach", "update" and "detach". For each stage there is a 
+corresponding method in the Component prototype which is called when the stage has been finished.
+ 
+The `attach` life-cycle stage is called once when the component's html has been rendered for the first time. In the 
+corresponding `attach()` method the rendered HTML is mounted into the document DOM replacing the element(s) targeted by
+the component's selector value. 
+ 
+    Note: If the selector targets more than one element in the document DOM all target's are replaced.
+    
+The `attach()` method takes the old DOM element and the new DOM element as it's arguments.
+ 
+    Component.prototype.attach = function(oldNode, newNode) { ... };
+     
+Override this method to connect event handlers for e.g. "click" events to the element. Use the methods `state()` and `props()`
+if you need to read data at this point (although you cannot change the data, it's read-only). Make sure that you call
+the corresponding method of the Component prototype when overriding because the super method does the actual DOM manipulation.
+ 
+    MyComponent.prototype.attach = function(oldNode, newNode) {
+        Component.prototype.attach.call(this, oldNode, newNode);
+        ...
+    };
+  
+The `update()` method is called whenever the component has finished rendering and has updated the DOM. 
+It receives the DOM node as an argument. You can override this method if you need to make adjustments to 
+the DOM after it has been rendered. Again don't forget to call the super method:
+
+    MyComponent.prototype.update = function(node) {
+        Component.prototype.update.call(this, node);
+        ...
+    };
+
+The `detach()` method handles the clean-up code if the component is not needed any more. It replaces the DOM nodes
+with the DOM elements that were in place before the component was attached and removes all data and event handlers from
+the component's DOM elements. All subscriptions of Flux data models are removed from the component as well. The method
+`detach()` is a good place for your own clean-up code.
+
+All three life-cycle related methods are called once for every DOM node that matches the component's selector. It's 
+perfectly fine if the selector matches more than one element. You can use components matching more than one element
+as a basic way of one-way data binding.
+
+See also
+--------
+
+Flux - [https://facebook.github.io/flux/](https://facebook.github.io/flux/)
+
+Hoverboard - [https://github.com/jesseskinner/hoverboard](https://github.com/jesseskinner/hoverboard)
+
+React - [http://reactjs.de/](https://github.com/jesseskinner/hoverboard)
+
+virtual-dom - [https://github.com/Matt-Esch/virtual-dom](https://github.com/Matt-Esch/virtual-dom)
+
+
 Enjoy!
+------
+
+Made with love by [Germany Says Welcome](http://www.germany-says-welcome) in Nov 2015.
+
+
+ 
