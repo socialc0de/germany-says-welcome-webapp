@@ -64,7 +64,6 @@ require(['domReady!',
             AsylumState: asylumStatus,
             BrowserLanguage: browserLanguage,
             Phrasebook: phrasebook,
-            FAQ: faq,
             Router: router
         };
 
@@ -89,7 +88,6 @@ require(['domReady!',
         var faqView = new FAQView('#faq', browserLanguage, asylumStatus, faq, router);
         faqView.subscribe(router, 'router');
         faqView.subscribe(browserLanguage, 'language');
-        faqView.subscribe(asylumStatus, 'status');
         faqView.subscribe(faq, 'faq');
     });
 
@@ -129,4 +127,4 @@ function addCollapsibleToggle() {
         }())
     });
 
-};
+}

@@ -6,6 +6,18 @@ define(['underscore', 'html2hscript', 'virtual-dom'],
 
         var ID = 1;
 
+        /**
+         * Returns the current state of the component. Mixes the current state's namespace with newState
+         * if provided as arguments and returns the result. Note that the actual state is not changed
+         * by this method. Consider this method as a "getter" with additional functionality and use "notify()"
+         * for state changes.
+         *
+         * Note: This method uses jQuery's $.extend(true, ...) for a deep copy of the state object.
+         *
+         * @param newState
+         * @param namespace
+         * @returns a copy of the current state mixed with the provided arguments.
+         */
         Component.prototype.state = function (newState, namespace) {
             var state = this._tree.getState() || {};
             if (newState) {
@@ -20,14 +32,30 @@ define(['underscore', 'html2hscript', 'virtual-dom'],
         };
 
         /**
-         * This method renders the entire component depending on its state, properties
-         * and child components. It must return a valid HTML string. The HTML string
+         * Returns a copy of the component's properties.
+         *
+         */
+        Component.prototype.props = function () {
+            return this._tree.getProperties();
+        };
+
+        /**
+         *  Returns the selector of the component.
+         */
+        Component.prototype.selector = function() {
+            return this._tree.getSelector();
+        };
+
+        /**
+         * This method renders the entire component depending on its state and properties.
+         *  It must return a valid HTML string. The HTML string
          * is used to change the current DOM element by diff'ing and patching its
          * DOM tree.
          *
+         * Override this method to render the HTML of the component.
+         *
          * @param state a copy of the state of the component.
          * @param props a copy of the properties of the component.
-         * @param children the rendered HTML of all child components as a hash.
          * @returns {string} a HTML string representing the entirely rendered component.
          */
         Component.prototype.render = function (state, props) {
@@ -70,6 +98,8 @@ define(['underscore', 'html2hscript', 'virtual-dom'],
         };
 
         /**
+         * Updates the state and triggers rendering if necessary. The method is asynchronous and returns
+         * immediately. The actual rendering is deferred to the next Javascript event cycle.
          *
          */
         Component.prototype.notify = function (state, namespace) {
@@ -77,6 +107,8 @@ define(['underscore', 'html2hscript', 'virtual-dom'],
             window.setTimeout(function () {
                 self._tree.setState(state, namespace);
             }, 0);
+            //TODO: Return a Promise which is fulfilled after the process finishes.
+            return undefined;
         };
 
         /**
@@ -107,7 +139,7 @@ define(['underscore', 'html2hscript', 'virtual-dom'],
          * Detaches the component from the DOM tree and removes all event handlers, jQuery data
          * and flux subscriptions. Override this method if you need to detach child components.
          */
-        Component.prototype.detach = function () {
+        Component.prototype.detach = function (node) {
             if (!this.replacedNodes) {
                 return;
             }
@@ -137,11 +169,15 @@ define(['underscore', 'html2hscript', 'virtual-dom'],
         };
 
         /**
-         * Call this method to set the state of the component. The state is merged
-         * into the current state leaving all hash properties unchanged which are
-         * not present in the new state hash. An optional namespace can be passed
-         * to store the state in a separate object property. After the state change
-         * the component is re-rendered automatically.
+         * This method is called whenever the state of the component is changed. It must return a copy of the
+         * entire state which is to replace the component's state before rendering. Override this method if you
+         * need to either alter the state before rendering or notify child component's or do other stuff before
+         * rendering.
+         *
+         * This method is a perfect place to filter the incoming state to all elements that are relevant to the
+         * component to prevent it from updating on state changes which do not influence the component.
+         *
+         * Use the state() method as an easy way to compose the return value.
          *
          * @param newState a hash representing the new state
          * @param namespace an optional namespace
@@ -150,10 +186,18 @@ define(['underscore', 'html2hscript', 'virtual-dom'],
             return this.state(newState, namespace);
         };
 
-        Component.prototype.props = function () {
-            return this._tree.getProperties();
-        };
-
+        /**
+         * This is the actual rendering engine using virtual-dom and hscript to
+         * compute and apply differences in the DOM by diff'ing and patching.
+         *
+         * Most methods and properties are private to keep state and properties as
+         * immutable as possible with Javascript.
+         *
+         * @param component
+         * @param selector
+         * @param props
+         * @private
+         */
         var _Tree = function (component, selector, props) {
 
             var state = {};
@@ -198,6 +242,8 @@ define(['underscore', 'html2hscript', 'virtual-dom'],
                 }
             };
 
+            /* Rendering */
+
             this.render = function () {
                 var _state = $.extend(true, {}, state);
                 var _props = $.extend(true, {}, props);
@@ -215,6 +261,7 @@ define(['underscore', 'html2hscript', 'virtual-dom'],
                     hs = hscript;
                     newTree = eval(hscript);
                 });
+                // TODO: Check if this loop is necessary. I guess that the parser is not async and has finished at this point.
                 while (!newTree) {
                 }
                 if (tree === undefined) {
@@ -223,7 +270,9 @@ define(['underscore', 'html2hscript', 'virtual-dom'],
                         if (_.isFunction(component.attach)) {
                             _.bind(component.attach, component)(this, node);
                         }
-                    });
+                        if (_.isFunction(component.update)) {
+                            _.bind(component.update, component)(this);
+                        }                    });
                 } else if (targetElement && targetElement.length) {
                     targetElement.each(function () {
                         var patches = VirtualDOM.diff(tree, newTree);
@@ -241,27 +290,16 @@ define(['underscore', 'html2hscript', 'virtual-dom'],
                 return tree;
             };
 
-            this.enqueueChild = function (child) {
-                childQueue.push(child);
-            };
-
-            /**
-             * Performs duck type check of 'obj' for Component interface. Components must have a "_tree" property
-             * which has methods "render", "html" and "setState".
-             * @param obj
-             * @returns {boolean}
-             */
-            function isComponent(obj) {
-                if (!obj) return false;
-                if (!obj._tree) return false;
-                if (!obj._tree.render || !(typeof obj._tree.render === 'function')) return false;
-                if (!obj._tree.setState || !(typeof obj._tree.setState === 'function')) return false;
-                if (!obj._tree.html || !(typeof obj._tree.html === 'function')) return false;
-                return true;
-            }
-
         };
 
+        /**
+         * Constructor of Component. Takes a DOM selector to target the DOM elements to replace
+         * by this component. The second argument is a set of (immutable) properties of the component.
+         *
+         * @param selector
+         * @param props
+         * @constructor
+         */
         function Component(selector, props) {
             if (_.isEmpty(selector)) {
                 throw new Error("Need a DOM element selector to render Component.");
