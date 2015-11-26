@@ -14,7 +14,7 @@ require.config(
 
             'Component': "../lib/Component",
 
-            'domReady': ['../third-party/requirejs-domReady']
+            'domReady': ['../third-party/requirejs-domready']
         },
         shim: {
             'hoverboard': {exports: 'Hoverboard'}
@@ -63,6 +63,7 @@ require(['domReady!',
         window.GSW = {
             AsylumState: asylumStatus,
             BrowserLanguage: browserLanguage,
+            FAQ: faq,
             Phrasebook: phrasebook,
             Router: router
         };
