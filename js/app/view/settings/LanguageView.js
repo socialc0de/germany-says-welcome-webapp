@@ -18,19 +18,23 @@ define(['Component', 'view/settings/LanguageRadio'], function (Component, Langua
     };
 
     LanguageView.prototype.setState = function (state, namespace) {
-        Component.prototype.setState.call(this, state, namespace);
         var self = this;
-        if (namespace && namespace == 'language' && state && state.languages) {
-            var languages = state.languages;
-            _.each(languages, function (l, lang) {
-                if (!self.langRadios[lang]) {
-                    var selector = '#settings-lang-select p[lang=' + lang + "]";
-                    var child = new LanguageRadio(selector, lang, l.label, self.browserLanguage);
-                    child.subscribe(self.browserLanguage, "language");
-                    self.langRadios[lang] = child;
-                }
-            });
+        switch (namespace) {
+            case "language":
+                var languages = state.languages || {};
+                _.each(languages, function (l, lang) {
+                    if (!self.langRadios[lang]) {
+                        var selector = '#settings-lang-select p[lang=' + lang + "]";
+                        var child = new LanguageRadio(selector, lang, l.label);
+                        self.langRadios[lang] = child;
+                    }
+                    if (state.selected !== undefined ) {
+                        self.langRadios[lang].notify({selected: state.selected == lang}, 'language');
+                    }
+                });
+                return this.state(state, namespace);
         }
+        return false;
     };
 
     function LanguageView(selector, browserLanguage) {

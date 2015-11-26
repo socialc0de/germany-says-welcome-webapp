@@ -13,14 +13,14 @@ define(['Component', 'handlebars'], function(Component, handlebars) {
         '</p>'
     );
 
-    StatusRadio.prototype.render = function(state) {
+    StatusRadio.prototype.render = function(state, props) {
         var data = {
             checked: "",
-            label: $.i18n.t("settings:" + this.status),
-            status: this.status
+            label: $.i18n.t("settings:" + props.status),
+            status: props.status
         };
         if ( state && state.status && state.status.selected ) {
-            data.checked = state.status.selected == this.status ? " checked" : "";
+            data.checked = state.status.selected ? " checked" : "";
         }
         return html(data);
     };
@@ -29,14 +29,12 @@ define(['Component', 'handlebars'], function(Component, handlebars) {
         _.bind(Component.prototype.attach, this)(oldNode, newNode);
         var self = this;
         $(newNode).on('change', function() {
-            self.asylumStatus.select(self.status);
+            GSW.AsylumState.select(self.props().status);
         });
     };
 
-    function StatusRadio(selector, status, asylumStatus) {
-        Component.call(this, selector);
-        this.status = status;
-        this.asylumStatus = asylumStatus;
+    function StatusRadio(selector, status) {
+        Component.call(this, selector, { status: status });
     }
 
     return StatusRadio;

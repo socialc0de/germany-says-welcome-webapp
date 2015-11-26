@@ -5,9 +5,6 @@ define(['underscore', 'Component', 'view/settings/LanguageView', 'view/settings/
     SettingsView.prototype = Object.create(Component.prototype);
 
     SettingsView.prototype.render = function (state) {
-        if ( state && state.router && state.router.params && state.router.params.section ) {
-            this.section = state.router.params.section;
-        }
         var html = '<ul class="collapsible" data-collapsible="accordion">' +
             '<li data-section="language">' +
             '<div class="collapsible-header" data-section="language">' +
@@ -26,16 +23,28 @@ define(['underscore', 'Component', 'view/settings/LanguageView', 'view/settings/
         return html;
     };
 
-    SettingsView.prototype.setState = function(state, namespace) {
-        _.bind(Component.prototype.setState, this)(state, namespace);
-        if ( !this.languageSection ) {
+    SettingsView.prototype.setState = function (newState, namespace) {
+        if (!this.languageSection) {
             this.languageSection = new LanguageView('#settings-lang-select', this.browserLanguage);
-            this.languageSection.subscribe(this.browserLanguage, 'language');
         }
-        if ( !this.statusSection ) {
+        if (!this.statusSection) {
             this.statusSection = new StatusView('#settings-status-select', this.asylumStatus, this.browserLanguage);
-            this.statusSection.subscribe(this.asylumStatus, 'status');
         }
+        switch (namespace) {
+            case "language":
+                this.languageSection.notify(newState, "language");
+                this.statusSection.notify({selected: newState.selected}, "language");
+                return this.state(newState, namespace);
+            case "status":
+                this.statusSection.notify({selected: newState.selected}, "status");
+                return this.state(newState, namespace);
+            case "router":
+                if ( newState.parts && newState.parts[0] == "settings" && newState.params && newState.params['section']) {
+                    var section = newState.params['section'];
+                    return this.state({section: section}, "router");
+                }
+        }
+        return false;
     };
 
     SettingsView.prototype.attach = function (oldNode, newNode) {
@@ -45,34 +54,33 @@ define(['underscore', 'Component', 'view/settings/LanguageView', 'view/settings/
         var el = $(newNode).find('div.collapsible-header').on('click', sectionChanged);
     };
 
-    SettingsView.prototype.update = function(node) {
-        if ( this.section ) {
+    SettingsView.prototype.update = function (node) {
+        var state = this.state();
+        var section = (state.router && state.router.section) || "language";
+        if (section) {
             var selected = $(node).find("li[data-section]");
             var self = this;
-            selected.each(function(idx, el) {
+            selected.each(function (idx, el) {
                 var header = $(el).find(".collapsible-header");
-                var section = header.attr("data-section");
-                if ( section == self.section && !header.hasClass("active") ) {
+                var sectionName = header.attr("data-section");
+                if (section == sectionName && !header.hasClass("active")) {
                     $(el).collapsible('toggle');
                 }
-                if ( section != self.section && header.hasClass("active") ) {
+                if (section != sectionName && header.hasClass("active")) {
                     $(el).collapsible('toggle');
                 }
             });
         }
     };
 
-    SettingsView.prototype.sectionChanged = function(event) {
+    SettingsView.prototype.sectionChanged = function (event) {
         var target = event.target;
         var section = $(target).attr('data-section');
         window.location.hash = "#settings/" + section;
     };
 
-    function SettingsView(selector, browserLanguage, asylumStatus) {
+    function SettingsView(selector) {
         Component.call(this, selector);
-        this.browserLanguage = browserLanguage;
-        this.asylumStatus = asylumStatus;
-        this.section = "language";
     }
 
     return SettingsView;

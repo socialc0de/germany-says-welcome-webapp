@@ -15,28 +15,33 @@ define(['Component', 'view/settings/StatusRadio', 'data/AsylumStatusValues'], fu
     };
 
     StatusView.prototype.setState = function (state, namespace) {
-        _.bind(Component.prototype.setState, this)(state, namespace);
         var self = this;
-        if (namespace && namespace == 'status' ) {
-            if ( !this.statusRadios.arrival  ) {
+        switch (namespace) {
+            case "status":
                 _.each(statusValues, function (status) {
-                    var selector = '#settings-status-select p[data-status=' + status + "]";
-                    var child = new StatusRadio(selector, status, self.asylumStatus);
-                    child.subscribe(self.asylumStatus, "status");
-                    child.subscribe(self.browserLanguage, "language");
-                    self.statusRadios[status] = child;
+                    if (!self.statusRadios[status]) {
+                        var selector = '#settings-status-select p[data-status=' + status + "]";
+                        var child = new StatusRadio(selector, status);
+                        self.statusRadios[status] = child;
+                    }
+                    self.statusRadios[status].notify({selected: state.selected == status }, 'status');
                 });
-            }
+                return this.state({selected: state.selected}, "status");
+            case "language":
+                _.each(self.statusRadios, function(radio) {
+                    radio.notify({selected: state.selected}, "language");
+                });
+                return this.state({selected: state.selected}, "language");
         }
+        return false;
     };
 
-    function StatusView(selector, asylumStatus, browserLanguage) {
+    function StatusView(selector) {
         Component.call(this, selector);
-        this.asylumStatus = asylumStatus;
-        this.browserLanguage = browserLanguage;
         this.statusRadios = {};
     }
 
     return StatusView;
 
-});
+})
+;

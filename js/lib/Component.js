@@ -6,8 +6,21 @@ define(['underscore', 'html2hscript', 'virtual-dom'],
 
         var ID = 1;
 
+        Component.prototype.state = function (newState, namespace) {
+            var state = this._tree.getState() || {};
+            if (newState) {
+                if (namespace) {
+                    state[namespace] = state[namespace] || {};
+                    $.extend(true, state[namespace], newState);
+                } else {
+                    $.extend(true, state, newState);
+                }
+            }
+            return state;
+        };
+
         /**
-         * This function renders the entire component depending on state, properties
+         * This method renders the entire component depending on its state, properties
          * and child components. It must return a valid HTML string. The HTML string
          * is used to change the current DOM element by diff'ing and patching its
          * DOM tree.
@@ -33,15 +46,20 @@ define(['underscore', 'html2hscript', 'virtual-dom'],
          * @returns {*} the unsubscribe method.
          */
         Component.prototype.subscribe = function (hoverboard, namespace) {
-            var setter = function (state) {
-                this.setState(state, namespace);
-            };
-            var unsubscribe = hoverboard.getState(_.bind(setter, this));
+            var notify = _.bind(function (state) {
+                this.notify(state, namespace);
+            }, this);
+            var unsubscribe = hoverboard.getState(notify);
             namespace = namespace || null;
             this.unsubscribeFn[namespace] = unsubscribe;
             return unsubscribe;
         };
 
+        /**
+         * Unsubscribes the component from a data model previously subscribed to via subscribe().
+         *
+         * @param namespace A namespace if it was used with subscribe().
+         */
         Component.prototype.unsubscribe = function (namespace) {
             namespace = namespace || null;
             var unsubscribe = this.unsubscribeFn[namespace];
@@ -49,6 +67,16 @@ define(['underscore', 'html2hscript', 'virtual-dom'],
                 delete this.unsubscribeFn[namespace];
                 unsubscribe();
             }
+        };
+
+        /**
+         *
+         */
+        Component.prototype.notify = function (state, namespace) {
+            var self = this;
+            window.setTimeout(function () {
+                self._tree.setState(state, namespace);
+            }, 0);
         };
 
         /**
@@ -119,71 +147,25 @@ define(['underscore', 'html2hscript', 'virtual-dom'],
          * @param namespace an optional namespace
          */
         Component.prototype.setState = function (newState, namespace) {
-            this._tree.setState(newState, namespace);
+            return this.state(newState, namespace);
         };
 
-        /**
-         * Call the method to set the state of the component. Unlike setState()
-         * the state is not merged but replaced entirely.
-         *
-         * @param namespace
-         * @param newState
-         * @see setState
-         */
-        Component.prototype.replaceState = function (newState, namespace) {
-            this._tree.replaceState(newState, namespace);
+        Component.prototype.props = function () {
+            return this._tree.getProperties();
         };
-
-        /**
-         * Deletes the current state of the component.
-         *
-         * @param namespace
-         */
-        Component.prototype.resetState = function (namespace) {
-            this._tree.resetState(namespace);
-        };
-
 
         var _Tree = function (component, selector, props) {
 
             var state = {};
             var tree = undefined;
 
+            var childQueue = [];
+
             /* State helper functions */
 
-            var _cleanState = function() {
+            var _cleanState = function () {
                 state = state || {};
                 return JSON.parse(JSON.stringify(state));
-            };
-
-            var _mergeStates = function (state, newState, namespace) {
-                if (namespace) {
-                    if (!state[namespace]) {
-                        state[namespace] = {};
-                    }
-                    $.extend(state[namespace], newState);
-                } else {
-                    $.extend(state, newState);
-                }
-                return state;
-            };
-
-            var _resetState = function (state, namespace) {
-                if (namespace) {
-                    state[namespace] = {};
-                } else {
-                    state = {};
-                }
-                return state;
-            };
-
-            var _replaceState = function (state, newState, namespace) {
-                if ( namespace ) {
-                    state[namespace] = $.extend({}, newState);
-                } else {
-                    state = $.extend({}, newState);
-                }
-                return state;
             };
 
             this.getSelector = function () {
@@ -194,24 +176,26 @@ define(['underscore', 'html2hscript', 'virtual-dom'],
                 return $.extend(true, {}, state);
             };
 
-            this.resetState = function (namespace) {
-                state = _resetState(state, namespace);
-                this.setState({}, namespace);
+            this.getProperties = function () {
+                return $.extend(true, {}, props);
             };
 
-            this.replaceState = function(newState, namespace) {
-                state = _replaceState(state, newState, namespace);
-                this.setState({}, namespace);
-            }
-
             this.setState = function (newState, namespace) {
+                if (!newState) return;
                 var _setStateFn = this.setState;
                 this.setState = function () {
                     throw Error("The state of this component is locked to prevent recursive state changes.");
                 };
-                state = _mergeStates(state, newState, namespace);
-                this.render();
-                this.setState = _setStateFn;
+                try {
+                    var renderState = component.setState(newState, namespace);
+                    if (!renderState || _.isEqual(renderState, state)) {
+                        return;
+                    }
+                    state = renderState;
+                    this.render();
+                } finally {
+                    this.setState = _setStateFn;
+                }
             };
 
             this.render = function () {
@@ -222,6 +206,9 @@ define(['underscore', 'html2hscript', 'virtual-dom'],
                     return tree;
                 }
                 var targetElement = $(selector);
+                if (!targetElement.length) {
+                    return;
+                }
                 var newTree = undefined;
                 var hs;
                 parser(html, function (err, hscript) {
@@ -247,7 +234,15 @@ define(['underscore', 'html2hscript', 'virtual-dom'],
                     });
                 }
                 tree = newTree;
+                _.each(childQueue, function (child) {
+                    child._tree.render();
+                });
+                childQueue = [];
                 return tree;
+            };
+
+            this.enqueueChild = function (child) {
+                childQueue.push(child);
             };
 
             /**

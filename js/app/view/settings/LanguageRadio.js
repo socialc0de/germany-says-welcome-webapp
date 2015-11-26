@@ -13,31 +13,25 @@ define(['Component', 'handlebars'], function(Component, handlebars) {
         '</p>'
     );
 
-    LanguageRadio.prototype.render = function(state) {
+    LanguageRadio.prototype.render = function(state, props) {
         var data = {
-            checked: "",
-            label: this.label,
-            lang: this.lang
+            checked: state.language && state.language.selected ? "checked" : "",
+            label: props.label,
+            lang: props.lang
         };
-        if ( state && state.language && state.language.selected ) {
-            data.checked = state.language.selected == this.lang ? " checked" : "";
-        }
         return html(data);
     };
 
     LanguageRadio.prototype.attach = function(oldNode, newNode) {
-        _.bind(Component.prototype.attach, this)(oldNode, newNode);
+        Component.prototype.attach.call(this, oldNode, newNode);
         var self = this;
         $(newNode).on('change', function() {
-            self.browserLanguage.select(self.lang);
+            GSW.BrowserLanguage.select(self.props().lang);
         });
     };
 
-    function LanguageRadio(selector, lang, label, browserLanguage) {
-        Component.call(this, selector);
-        this.lang = lang;
-        this.label = label;
-        this.browserLanguage = browserLanguage;
+    function LanguageRadio(selector, lang, label) {
+        Component.call(this, selector, { lang: lang, label: label });
     }
 
     return LanguageRadio;
