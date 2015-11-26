@@ -7,9 +7,9 @@ define(['data/PhrasebookAPI', 'underscore', 'hoverboard'], function (API, _, Hov
 
             init: function (state, lang) {
                 lang = lang || "en";
-                var url = API.url + "/" + lang;
+                var url = API.categoryurl + "by-language/" + lang + "/";
                 $.get(url).done(function (result) {
-                    instance.categoriesLoaded(result.categories);
+                    instance.categoriesLoaded(result);
                 });
                 return {categories: {}, phrases: {}, loading: true};
             },
@@ -31,9 +31,9 @@ define(['data/PhrasebookAPI', 'underscore', 'hoverboard'], function (API, _, Hov
                 if ( !category ) {
                     return {};
                 }
-                var url = API.url + category.url;
+                var url = API.categoryurl + category.id;
                 $.get(url).done(function(result) {
-                    instance.phrasesLoaded(result.category.phrases);
+                    instance.phrasesLoaded(result.phrases);
                 });
 
                 return {loading: true, phrases: {}};

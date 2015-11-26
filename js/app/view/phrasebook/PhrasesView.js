@@ -13,10 +13,10 @@ define(['Component', 'underscore'], function (Component, _) {
                 html += '<div class="card">' +
                     ' <div class="card-content">' +
                     '  <div class="card-title"><b>' +
-                    phrase[lang] +
+                    phrase.translations[lang].phrase +
                     '</b>  </div>' +
                     '  <div class="card-title" lang="de">' +
-                    phrase['de'] +
+                    phrase.translations['de'].phrase +
                     '  </div>' +
                     ' </div>' +
                     '<div class="card-action">' +

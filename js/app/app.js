@@ -26,19 +26,23 @@ require(['domReady!',
         'model/AsylumStatus',
         'model/BrowserLanguage',
         'model/Phrasebook',
+        'model/FAQ',
         'Router', 'data/Routes',
         'view/MainView',
         'view/PhrasebookView',
+        'view/FAQView',
         'view/SideNavView',
         'view/SettingsView'],
     function (domReady,
               AsylumStatus,
               BrowserLanguage,
               Phrasebook,
+              FAQ,
               Router,
               routes,
               MainView,
               PhrasebookView,
+              FAQView,
               SideNavView,
               SettingsView) {
 
@@ -49,10 +53,12 @@ require(['domReady!',
         var asylumStatus = new AsylumStatus();
         var browserLanguage = new BrowserLanguage();
         var phrasebook = new Phrasebook();
+        var faq = new FAQ();
         router.update();
         browserLanguage.init();
         asylumStatus.init();
         phrasebook.init();
+        faq.init();
 
         window.GSW = {
             AsylumState: asylumStatus,
@@ -79,6 +85,10 @@ require(['domReady!',
         phrasebookView.subscribe(browserLanguage, 'language');
         phrasebookView.subscribe(phrasebook, 'phrasebook');
 
+        var faqView = new FAQView('#faq', browserLanguage, asylumStatus, faq, router);
+        faqView.subscribe(router, 'router');
+        faqView.subscribe(browserLanguage, 'language');
+        faqView.subscribe(faq, 'faq');
     });
 
 function addCollapsibleToggle() {

@@ -16,7 +16,7 @@ define(['Component', 'underscore'], function (Component, _) {
                     '"><div class="chip' +
                     (cat.id == selected ? " active" : "") +
                     '">' +
-                    cat[lang] +
+                    cat.translations[lang].name +
                     '</div></a>';
             });
         }
