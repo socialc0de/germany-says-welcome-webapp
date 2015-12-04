@@ -10,23 +10,28 @@ define(['Component', 'underscore'], function (Component, _) {
         if (phrasebook.phrases) {
             var self = this;
             _.each(phrasebook.phrases, function (phrase) {
-                html += '<div class="card">' +
-                    ' <div class="card-content">' +
-                    '  <div class="card-title"><b>' +
-                    phrase.translations[lang].phrase +
-                    '</b>  </div>' +
-                    '  <div class="card-title" lang="de">' +
-                    phrase.translations['de'].phrase +
-                    '  </div>' +
-                    ' </div>' +
-                    '<div class="card-action">' +
-                    '<a href="#" ' +
-                    'data-phrase="' +
-                    phrase.id +
-                    '" ' +
-                    'class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">volume_up</i></a>' +
-                    '</div>' +
-                    '</div>';
+                if (phrase.translations[lang] === undefined) {
+                    console.log("No translation for the phrase available");
+                    console.log(phrase);
+                } else {
+                    html += '<div class="card">' +
+                        ' <div class="card-content">' +
+                        '  <div class="card-title"><b>' +
+                        phrase.translations[lang].phrase +
+                        '</b>  </div>' +
+                        '  <div class="card-title" lang="de">' +
+                        phrase.translations['de'].phrase +
+                        '  </div>' +
+                        ' </div>' +
+                        '<div class="card-action">' +
+                        '<a href="#" ' +
+                        'data-phrase="' +
+                        phrase.id +
+                        '" ' +
+                        'class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">volume_up</i></a>' +
+                        '</div>' +
+                        '</div>';
+                }
             });
         }
         html += '</div>';

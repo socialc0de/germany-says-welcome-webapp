@@ -64,7 +64,8 @@ require(['domReady!',
             AsylumState: asylumStatus,
             BrowserLanguage: browserLanguage,
             Phrasebook: phrasebook,
-            Router: router
+            Router: router,
+            FAQ: faq
         };
 
         // Setup views.
