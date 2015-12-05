@@ -1,8 +1,20 @@
-define(['Component'], function (Component) {
+define(['underscore','Component', 'data/EmergencyNumbers'], function (_, Component, EmergencyNumbers) {
     EmergencyView.prototype = Object.create(Component.prototype);
 
+    var emergencyNumbers = EmergencyNumbers.EmergencyNumbers;
+
     EmergencyView.prototype.render = function (state) {
-        var html = '<div><h5 data-i18n="emergency:police"></h5><h6 data-i18n="emergency:phone" style="display: inline;"></h6><h6 style="display: inline;">: 110</h6><p data-i18n="emergency:police-text"></p></div>';
+        var html = '';
+        html += '<table class="bordered highlight emergency-table"><thead><tr><th data-field="name" data-i18n="emergency:name"></th><th data-field="phone" data-i18n="emergency:phone"></th></tr></thead><tbody>'
+        _.each(emergencyNumbers, function (item) {
+            html += '<tr>' +
+                '<td>' + item.name + '</td>' +
+                '<td>' + '<a href="tel://' + item.telefon + '">' +  item.telefon + '</a></td>' +
+                '<td></td>'
+                '</tr>';
+        });
+
+        html += "</tbody></table></div>";
         return html;
     };
 

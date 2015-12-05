@@ -43,9 +43,35 @@ header, main, footer {
   padding-right: 10px;
 }
 
+.emergency-table {
+  width: 50%;
+}
+
 @media only screen and (max-width : 992px) {
   header, main, footer {
     padding-left: 0;
+  }
+
+  .emergency-table {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 1040px) {
+  .emergency-table {
+    width: 60%;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .emergency-table{
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .emergency-table {
+    font-size: 13px;
   }
 }
 
@@ -115,4 +141,3 @@ div#phrasebook_categories > a > div.chip.active {
   background-color: $primary-color;
   color: white;
 }
-
