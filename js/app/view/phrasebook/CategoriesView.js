@@ -5,12 +5,17 @@ define(['Component', 'underscore'], function (Component, _) {
     CategoriesView.prototype.render = function (state) {
         var html = '<div>';
         var phrasebook = state.phrasebook || {};
+        phrasebook.categories = phrasebook.categories || [];
         var lang = (state.language && state.language.selected) || "en";
         lang = lang == "de" ? "en" : lang;
         var selected = phrasebook.cat || 1;
-        if (!phrasebook.loading && phrasebook.categories) {
-            var self = this;
-            _.each(phrasebook.categories, function (cat) {
+        _.chain(phrasebook.categories)
+            .filter(function (cat) {
+                return cat.translations !== undefined;
+            }).filter(function (cat) {
+                return _.has(cat.translations, lang);
+            })
+            .each(function (cat) {
                 html += '<a href="#phrasebook/' +
                     cat.id +
                     '"><div class="chip' +
@@ -19,7 +24,6 @@ define(['Component', 'underscore'], function (Component, _) {
                     cat.translations[lang].name +
                     '</div></a>';
             });
-        }
         html += '</div>';
         return html;
     };
@@ -30,4 +34,5 @@ define(['Component', 'underscore'], function (Component, _) {
 
     return CategoriesView;
 
-});
+})
+;
