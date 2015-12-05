@@ -4,6 +4,8 @@ node_modules
 bower_components
 npm-debug.log
 /js/third-party
+# This is a compiled version of the scss file
+/css/app.css
 /css/third-party
 /scss/third-party
 dist

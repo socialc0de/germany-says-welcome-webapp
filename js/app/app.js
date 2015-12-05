@@ -65,7 +65,8 @@ require(['domReady!',
             BrowserLanguage: browserLanguage,
             FAQ: faq,
             Phrasebook: phrasebook,
-            Router: router
+            Router: router,
+            FAQ: faq
         };
 
         // Setup views.
