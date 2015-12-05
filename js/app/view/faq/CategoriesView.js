@@ -6,8 +6,7 @@ define(['Component', 'underscore'], function (Component, _) {
         var html = '<div>';
         var faq = state.faq || {};
         var lang = (state.language && state.language.selected) || "en";
-        lang = lang == "de" ? "en" : lang;
-        var selected = faq.cat || 1;
+        var selected = faq.cat;
         if (!faq.loading && faq.categories) {
             var self = this;
             _.each(faq.categories, function (cat) {
