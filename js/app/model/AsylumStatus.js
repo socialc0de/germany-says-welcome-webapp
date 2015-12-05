@@ -4,8 +4,6 @@ define(['underscore', 'hoverboard', 'js-cookie', 'data/AsylumStatusValues'], fun
     var statusValues = StatusValues.statusValues;
     var cookieName = 'gsw-asylum-status';
 
-    AsylumStatus.prototype.statusValues = ['arrival', 'application', 'integration'];
-
     function AsylumStatus() {
         var instance = Hoverboard({
 
