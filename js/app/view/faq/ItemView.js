@@ -6,11 +6,15 @@ define(['Component', 'underscore'], function (Component, _) {
         var html = '<div>';
         var faq = state.faq || {};
         var cat = parseInt(faq.cat || -1);
+        var asylumStatus = (state.status && state.status.selected) || 1;
         var lang = (state.language && state.language.selected) || "en";
         var items = faq.items || [];
         items = _.chain(items)
             .filter(function (item) {
                 return _.contains(item.categories, cat);
+            })
+            .filter(function(item) {
+                return _.contains(item.audiences, asylumStatus);
             })
             .filter(function (item) {
                 return _.has(item.translations, lang);

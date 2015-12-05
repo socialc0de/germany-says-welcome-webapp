@@ -77,18 +77,19 @@ require(['domReady!',
         sideNav.subscribe(router, 'router');
         sideNav.subscribe(browserLanguage, 'language');
 
-        var settingsView = new SettingsView('#settings', browserLanguage, asylumStatus);
+        var settingsView = new SettingsView('#settings');
         settingsView.subscribe(router, 'router');
         settingsView.subscribe(browserLanguage, 'language');
         settingsView.subscribe(asylumStatus, 'status');
 
-       var phrasebookView = new PhrasebookView('#phrasebook', browserLanguage, phrasebook, router);
+       var phrasebookView = new PhrasebookView('#phrasebook');
         phrasebookView.subscribe(router, 'router');
         phrasebookView.subscribe(browserLanguage, 'language');
         phrasebookView.subscribe(phrasebook, 'phrasebook');
 
-        var faqView = new FAQView('#faq', browserLanguage, asylumStatus, faq, router);
+        var faqView = new FAQView('#faq');
         faqView.subscribe(router, 'router');
+        faqView.subscribe(asylumStatus, 'status');
         faqView.subscribe(browserLanguage, 'language');
         faqView.subscribe(faq, 'faq');
     });
