@@ -17,6 +17,9 @@ define({
 
     /* Settings */
     settings: 'settings',
-    settings_section: 'settings/{section}'
+    settings_section: 'settings/{section}',
+
+    /* Emergency */
+    emergency: 'emergency'
 
 });
