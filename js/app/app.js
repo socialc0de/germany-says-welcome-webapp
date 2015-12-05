@@ -32,7 +32,8 @@ require(['domReady!',
         'view/PhrasebookView',
         'view/FAQView',
         'view/SideNavView',
-        'view/SettingsView'],
+        'view/SettingsView',
+        'view/EmergencyView'],
     function (domReady,
               AsylumStatus,
               BrowserLanguage,
@@ -44,7 +45,8 @@ require(['domReady!',
               PhrasebookView,
               FAQView,
               SideNavView,
-              SettingsView) {
+              SettingsView,
+              EmergencyView) {
 
         addCollapsibleToggle();
 
@@ -90,6 +92,10 @@ require(['domReady!',
         faqView.subscribe(router, 'router');
         faqView.subscribe(browserLanguage, 'language');
         faqView.subscribe(faq, 'faq');
+
+        var emergencyView = new EmergencyView('#emergency', browserLanguage);
+        emergencyView.subscribe(router, 'router');
+        emergencyView.subscribe(browserLanguage, 'language');
     });
 
 function addCollapsibleToggle() {
