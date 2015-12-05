@@ -7,9 +7,12 @@ define(['Component', 'underscore'], function (Component, _) {
         var faq = state.faq || {};
         var lang = (state.language && state.language.selected) || "en";
         var selected = faq.cat;
-        if (!faq.loading && faq.categories) {
+        if (!faq.loading && faq.categories ) {
             var self = this;
             _.each(faq.categories, function (cat) {
+                if ( !cat.translations || ! cat.translations[lang] ) {
+                    return;
+                }
                 html += '<a href="#faq/' +
                     cat.id +
                     '"><div class="chip' +

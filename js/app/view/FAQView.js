@@ -17,8 +17,8 @@ define(['Component', 'view/faq/CategoriesView', 'view/faq/ItemView', 'data/Asylu
                 if ( state.categories ) {
                     this.categoriesView.notify({ categories: state.categories}, 'faq');
                 }
-                if ( state.items_to_show ) {
-                    this.itemView.notify({ items_to_show: state.items_to_show }, 'faq');
+                if ( state.items ) {
+                    this.itemView.notify({ items: state.items }, 'faq');
                 }
                 return this.state(state, "faq");
             case 'language':
@@ -40,8 +40,8 @@ define(['Component', 'view/faq/CategoriesView', 'view/faq/ItemView', 'data/Asylu
                 break;
             case 'router':
                 if (state.parts && state.parts[0] == 'faq' && state.params && state.params.cat) {
-                    GSW.FAQ.items(state.params.cat);
                     this.categoriesView.notify({ cat: state.params.cat }, 'faq');
+                    this.itemView.notify({cat: state.params.cat}, 'faq');
                     return this.state({ cat: state.params.cat }, 'faq');
                 }
                 break;
