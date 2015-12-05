@@ -5,11 +5,17 @@ define(['Component', 'underscore'], function (Component, _) {
     ItemView.prototype.render = function (state) {
         var html = '<div>';
         var faq = state.faq || {};
+        var cat = parseInt(faq.cat || -1);
         var lang = (state.language && state.language.selected) || "en";
-        lang = lang == "de" ? "en" : lang;
-        if (faq.items_to_show) {
-            var self = this;
-            _.each(faq.items_to_show, function (item) {
+        var items = faq.items || [];
+        items = _.chain(items)
+            .filter(function (item) {
+                return _.contains(item.categories, cat);
+            })
+            .filter(function (item) {
+                return _.has(item.translations, lang);
+            })
+            .each(function (item) {
                 html += '<div class="card">' +
                     ' <div class="card-content">' +
                     '  <div class="card-title"><b>' +
@@ -21,7 +27,6 @@ define(['Component', 'underscore'], function (Component, _) {
                     ' </div>' +
                     '</div>';
             });
-        }
         html += '</div>';
         return html;
     };
