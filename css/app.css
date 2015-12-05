@@ -8563,3 +8563,7 @@ div#phrasebook_categories > a > div.chip {
 div#phrasebook_categories > a > div.chip.active {
   background-color: #003171;
   color: white; }
+
+div#faq_categories > a > div.chip.active {
+  background-color: #003171;
+  color: white; }

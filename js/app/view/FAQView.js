@@ -23,7 +23,7 @@ define(['Component', 'view/faq/CategoriesView', 'view/faq/ItemView', 'data/Asylu
                 return this.state(state, "faq");
             case 'language':
                 if (state.selected) {
-                    var selected = state.selected == 'de' ? "en" : state.selected;
+                    var selected = state.selected || "en";
                     this.categoriesView.notify({ selected: selected}, "language");
                     this.itemView.notify({ selected: selected}, "language");
                     return this.state({selected: selected}, "language");
