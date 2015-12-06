@@ -7,6 +7,7 @@ define(['underscore', 'handlebars', 'Component'],
             {"label": "faq", "target": "#faq"},
             {"label": "map", "target": "#map"},
             {"label": "phrasebook", "target": "#phrasebook"},
+            {"label": "emergency", "target": "#emergency"},
             {"label": "settings", "target": "#settings"}
         ];
 
