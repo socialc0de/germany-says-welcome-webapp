@@ -13,9 +13,6 @@
 
 // components
 @import "third-party/materialize/components/global";
-@import "third-party/materialize/components/icons-material-design";
-@import "third-party/materialize/components/grid";
-@import "third-party/materialize/components/navbar";
 @import "third-party/materialize/components/roboto";
 @import "third-party/materialize/components/typography";
 @import "third-party/materialize/components/cards";
@@ -46,6 +43,20 @@ header, main, footer {
 @media only screen and (max-width : 992px) {
   header, main, footer {
     padding-left: 0;
+  }
+}
+
+.emergency-collapse {
+  width: 50%;
+}
+
+.emergency-collapse a {
+  float: right;
+}
+
+@media only screen and (max-width: 850px) {
+  .emergency-collapse {
+    width: 100%;
   }
 }
 
@@ -112,11 +123,6 @@ div#phrasebook_categories > a > div.chip {
 }
 
 div#phrasebook_categories > a > div.chip.active {
-  background-color: $primary-color;
-  color: white;
-}
-
-div#faq_categories > a > div.chip.active {
   background-color: $primary-color;
   color: white;
 }
