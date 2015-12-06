@@ -24,7 +24,6 @@ define(['Component', 'view/phrasebook/CategoriesView', 'view/phrasebook/PhrasesV
             case 'language':
                 if (state.selected) {
                     var selected = state.selected == 'de' ? "en" : state.selected;
-                    GSW.Phrasebook.init(selected);
                     this.categoriesView.notify({ selected: selected}, "language");
                     this.phrasesView.notify({ selected: selected}, "language");
                     return this.state({selected: selected}, "language");
@@ -32,8 +31,8 @@ define(['Component', 'view/phrasebook/CategoriesView', 'view/phrasebook/PhrasesV
                 break;
             case 'router':
                 if (state.parts && state.parts[0] == 'phrasebook' && state.params && state.params.cat) {
-                    GSW.Phrasebook.phrases(state.params.cat);
                     this.categoriesView.notify({ cat: state.params.cat }, 'phrasebook');
+                    this.phrasesView.notify({ cat: state.params.cat}, 'phrasebook');
                     return this.state({ cat: state.params.cat }, 'phrasebook');
                 }
                 break;

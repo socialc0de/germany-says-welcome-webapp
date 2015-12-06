@@ -134,9 +134,9 @@ Components are inspired by React but hide the complexity of setting up a React d
 implemented by inheriting from the component base class `view/Component` (line #5 and line #12) and by overriding its `render()` method
 (line #7).
 
-    #1 define(function (require) {
+    #1 define(['Component'], function (Component) {
     #2
-    #3    var Component = require("view/Component");
+    #3
     #4
     #5    Hello.prototype = Object.create(Component.prototype);
     #6
@@ -181,7 +181,7 @@ In more complex scenarios, [Handlebars](http://handlebarsjs.com/) could be quite
 
 And to wire everything up you need a Flux data model for the user's name:
 
-    define(function(require) {
+    define(['Hoverboard'], function(Hoverboard) {
 
             function User() {
                 return Hoverboard(
