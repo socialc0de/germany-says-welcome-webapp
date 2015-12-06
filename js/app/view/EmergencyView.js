@@ -5,18 +5,22 @@ define(['underscore','Component', 'data/EmergencyNumbers'], function (_, Compone
 
     EmergencyView.prototype.render = function (state) {
         var html = '';
-        html += '<table class="bordered highlight emergency-table"><thead><tr><th data-field="name" data-i18n="emergency:name"></th><th data-field="phone" data-i18n="emergency:phone"></th></tr></thead><tbody>'
+        html += '<div><ul class="collapsible popout emergency-collapse" data-collapsible="accordion">';
         _.each(emergencyNumbers, function (item) {
-            html += '<tr>' +
-                '<td>' + item.name + '</td>' +
-                '<td>' + '<a href="tel://' + item.telefon + '">' +  item.telefon + '</a></td>' +
-                '<td></td>'
-                '</tr>';
+            html += '<li>' +
+                        '<div class="collapsible-header">' + item.name + ' <a href="tel://' +  item.telefon + '">' + item.telefon + '</a></div>' +
+                        '<div class="collapsible-body" style="margin-left: 1%">' + item.description + '</div>' +
+                    '</li>';
         });
 
-        html += "</tbody></table></div>";
+        html += "</ul></div>";
         return html;
     };
+
+    EmergencyView.prototype.attach = function (oldNode, newNode) {
+        _.bind(Component.prototype.attach, this)(oldNode, newNode);
+        $(".collapsible").collapsible();
+    }
 
     function EmergencyView(selector) {
         Component.call(this, selector);
