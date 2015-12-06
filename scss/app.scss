@@ -43,35 +43,23 @@ header, main, footer {
   padding-right: 10px;
 }
 
-.emergency-table {
-  width: 50%;
-}
-
 @media only screen and (max-width : 992px) {
   header, main, footer {
     padding-left: 0;
   }
+}
 
-  .emergency-table {
+.emergency-collapse {
+  width: 50%;
+}
+
+.emergency-collapse a {
+  float: right;
+}
+
+@media only screen and (max-width: 850px) {
+  .emergency-collapse {
     width: 100%;
-  }
-}
-
-@media only screen and (max-width: 1040px) {
-  .emergency-table {
-    width: 60%;
-  }
-}
-
-@media only screen and (max-width: 640px) {
-  .emergency-table{
-    width: 100%;
-  }
-}
-
-@media only screen and (max-width: 400px) {
-  .emergency-table {
-    font-size: 13px;
   }
 }
 
