@@ -6,14 +6,19 @@ define(['Component', 'underscore'], function (Component, _) {
         var html = '<div>';
         var phrasebook = state.phrasebook || {};
         var lang = (state.language && state.language.selected) || "en";
+        var selected = phrasebook.cat || 1;
         lang = lang == "de" ? "en" : lang;
         if (phrasebook.phrases) {
             var self = this;
-            _.each(phrasebook.phrases, function (phrase) {
-                if (phrase.translations[lang] === undefined) {
-                    console.log("No translation for the phrase available");
-                    console.log(phrase);
-                } else {
+            var phrases = phrasebook.phrases;
+            _.chain(phrasebook.phrases || [])
+                .filter(function (phrase) {
+                    return _.has(phrase.translations, lang);
+                })
+                .filter(function(phrase) {
+                    return phrase.cat == selected;
+                })
+                .each(function (phrase) {
                     html += '<div class="card">' +
                         ' <div class="card-content">' +
                         '  <div class="card-title"><b>' +
@@ -31,20 +36,20 @@ define(['Component', 'underscore'], function (Component, _) {
                         'class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">volume_up</i></a>' +
                         '</div>' +
                         '</div>';
-                }
-            });
+
+                });
         }
         html += '</div>';
         return html;
     };
 
-    PhrasesView.prototype.attach = function(newNode, oldNode) {
-        $(newNode).on('click', function(event){
+    PhrasesView.prototype.attach = function (newNode, oldNode) {
+        $(newNode).on('click', function (event) {
             var el = $(event.target);
-            if ( el.is('#phrasebook_phrases i.material-icons') ) {
+            if (el.is('#phrasebook_phrases i.material-icons')) {
                 el = el.parent();
             }
-            if ( el.is('#phrasebook_phrases a[data-phrase]') ) {
+            if (el.is('#phrasebook_phrases a[data-phrase]')) {
                 el = el.parent().parent();
             } else {
                 return true;

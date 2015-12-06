@@ -2,45 +2,78 @@ define(['data/PhrasebookAPI', 'underscore', 'hoverboard'], function (API, _, Hov
 
     var $ = window.$;
 
+    var catRegex = /(\d+)\/?$/;
+
+    var haveLocalStorage = function () {
+        if (window.localStorage) {
+            try {
+                window.localStorage.setItem("GSW.test", "1");
+                window.localStorage.removeItem("GSW.test");
+                return true;
+            } catch (e) {
+            }
+        }
+        return false;
+
+
+    };
+
     function Phrasebook() {
         var instance = Hoverboard({
 
-            init: function (state, lang) {
-                lang = lang || "en";
-                var url = API.categoryurl + "by-language/" + lang + "/";
-                $.get(url).done(function (result) {
+            init: function (state) {
+
+                if (haveLocalStorage()) {
+                    var storage = window.localStorage;
+                    var phrases = storage.getItem("GSW.phrasebook.phrases");
+                    if (phrases) {
+                        try {
+                            phrases = JSON.parse(phrases);
+                            console.log("Phrasebook: Phrases loaded from cache.");
+                            window.setTimeout(_.bind(instance.phrasesLoaded, instance, phrases), 0);
+                        } catch (e) {}
+                    }
+                    var categories = storage.getItem("GSW.phrasebook.categories");
+                    if (categories) {
+                        try {
+                            categories = JSON.parse(categories);
+                            console.log("Phrasebook: Categories loaded from cache.");
+                            window.setTimeout(_.bind(instance.categoriesLoaded, instance, categories), 0);
+                        } catch (e) {}
+                    }
+                }
+                $.get(API.categoryurl).done(function (result) {
                     instance.categoriesLoaded(result);
                 });
-                return {categories: {}, phrases: {}, loading: true};
+                $.get(API.phraseurl).done(function (result) {
+                    instance.phrasesLoaded(result);
+                });
+                return {categories: {}, phrases: {}};
             },
 
             categoriesLoaded: function (state, categories) {
-                return {loading: false, categories: categories};
+                if ( haveLocalStorage() ) {
+                    var storage = window.localStorage;
+                    storage.setItem("GSW.phrasebook.categories", JSON.stringify(categories));
+                }
+                return {categories: categories};
             },
 
-            phrases: function (state, cat) {
-                if ( !state || !state.categories ) {
-                    return {};
+            phrasesLoaded: function (state, phrases) {
+                if ( haveLocalStorage() ) {
+                    var storage = window.localStorage;
+                    storage.setItem("GSW.phrasebook.phrases", JSON.stringify(phrases));
                 }
-                var category;
-                for ( var id in state.categories ) {
-                    if ( state.categories[id].id == cat ) {
-                        category = state.categories[id];
+                _.each(phrases, function (phrase) {
+                    var category = phrase.category;
+                    var matches = catRegex.exec(category);
+                    if (matches) {
+                        var cat = matches[1];
+                        phrase.cat = cat;
                     }
-                }
-                if ( !category ) {
-                    return {};
-                }
-                var url = API.categoryurl + category.id;
-                $.get(url).done(function(result) {
-                    instance.phrasesLoaded(result.phrases);
                 });
 
-                return {loading: true, phrases: {}};
-            },
-
-            phrasesLoaded: function(state, phrases) {
-                return { loading: false, phrases: phrases };
+                return {phrases: phrases};
             }
 
         });
