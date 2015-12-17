@@ -28,8 +28,10 @@ require(['domReady!',
         'model/Phrasebook',
         'model/FAQ',
         'model/EmergencyNumbers',
+        'model/POI',
         'Router', 'data/Routes',
         'view/MainView',
+        'view/MapView',
         'view/PhrasebookView',
         'view/FAQView',
         'view/SideNavView',
@@ -41,9 +43,11 @@ require(['domReady!',
               Phrasebook,
               FAQ,
               EmergencyNumbers,
+              POI,
               Router,
               routes,
               MainView,
+              MapView,
               PhrasebookView,
               FAQView,
               SideNavView,
@@ -59,12 +63,14 @@ require(['domReady!',
         var phrasebook = new Phrasebook();
         var faq = new FAQ();
         var emergencynumbers = new EmergencyNumbers();
+        var poi = new POI();
         router.update();
         browserLanguage.init();
         asylumStatus.init();
         phrasebook.init();
         faq.init();
         emergencynumbers.init();
+        poi.init();
 
         window.GSW = {
             AsylumState: asylumStatus,
@@ -72,7 +78,8 @@ require(['domReady!',
             Phrasebook: phrasebook,
             Router: router,
             FAQ: faq,
-            EmergencyNumbers: emergencynumbers
+            EmergencyNumbers: emergencynumbers,
+            POI: poi
         };
 
         // Setup views.
@@ -88,7 +95,7 @@ require(['domReady!',
         settingsView.subscribe(browserLanguage, 'language');
         settingsView.subscribe(asylumStatus, 'status');
 
-       var phrasebookView = new PhrasebookView('#phrasebook');
+        var phrasebookView = new PhrasebookView('#phrasebook');
         phrasebookView.subscribe(router, 'router');
         phrasebookView.subscribe(browserLanguage, 'language');
         phrasebookView.subscribe(phrasebook, 'phrasebook');
@@ -103,6 +110,11 @@ require(['domReady!',
         emergencyView.subscribe(router, 'router');
         emergencyView.subscribe(browserLanguage, 'language');
         emergencyView.subscribe(emergencynumbers, 'emergencynumbers');
+        
+        var mapView = new MapView('#map');
+        mapView.subscribe(router, 'router');
+        mapView.subscribe(browserLanguage, 'language');
+        mapView.subscribe(poi, 'poi');
     });
 
 function addCollapsibleToggle() {
