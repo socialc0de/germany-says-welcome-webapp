@@ -38,7 +38,9 @@
 @import "third-party/materialize/components/date_picker/default.date.scss";
 @import "third-party/materialize/components/date_picker/default.time.scss";
 
-// Our mixins;
+@import "third-party/leaflet/leaflet";
+@import "third-party/leaflet/MarkerCluster";
+@import "third-party/leaflet/MarkerCluster.Default";
 
 header, main, footer {
   padding-left: 250px;
@@ -72,12 +74,12 @@ header, main, footer {
 }
 
 header nav li.nav-logo {
-  padding-top: 8px;
-  height:60px;
+    padding-top: 8px;
+    height:60px;
 }
 
 .side-nav {
-  background-color: $primary-color;
+    background-color: $primary-color;
 }
 
 .side-nav li {
@@ -89,10 +91,10 @@ header nav li.nav-logo {
 }
 
 .side-nav li.active {
-  background-color: $primary-color !important;
+    background-color: $primary-color !important;
 }
 .side-nav li.active a {
-  color: #ff4081 !important;
+    color: #ff4081 !important;
 }
 
 .side-nav li a {
@@ -122,22 +124,38 @@ header nav li.nav-logo {
 }
 
 div.main-container {
-  display: none;
+    display: none;
 };
 
 div.main-container.active {
-  display: inline;
+    display: inline;
 };
 
 div#phrasebook_categories > a > div.chip {
-  margin: 3px;
+    margin: 3px;
 }
 
 div#phrasebook_categories > a > div.chip.active {
-  background-color: $primary-color;
-  color: white;
+    background-color: $primary-color;
+    color: white;
 }
 
 a.btn-floating {
   background-color: $primary-color !important;
+}
+
+div#map_categories > a > div.chip.active {
+    background-color: $primary-color;
+    color: white;
+}
+
+div#map_categories {
+    //Padding to the map
+    padding-bottom: 10px;
+}
+
+#map_markers {
+    //the map should be fullsized
+    width: 100%;
+    height: 500px;
 }
