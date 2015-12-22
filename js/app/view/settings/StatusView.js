@@ -8,7 +8,7 @@ define(['Component', 'view/settings/StatusRadio', 'data/AsylumStatusValues'], fu
         var html = '<form id="settings-status-select" action="#">';
         var self = this;
         _.each(statusValues, function (status) {
-            html += '<p data-status="' + status + '">';
+            html += '<p data-status="' + status + '"></p>';
         });
         html += '</form>';
         return html;
