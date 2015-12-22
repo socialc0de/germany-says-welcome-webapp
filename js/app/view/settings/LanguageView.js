@@ -9,7 +9,7 @@ define(['Component', 'view/settings/LanguageRadio'], function (Component, Langua
             var languages = state.language.languages;
             var self = this;
             _.each(languages, function (l, lang) {
-                html += '<p lang="' + lang + '">';
+                html += '<p lang="' + lang + '"></p>';
             });
 
         }
