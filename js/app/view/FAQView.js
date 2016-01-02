@@ -1,4 +1,4 @@
-define(['Component', 'view/faq/CategoriesView', 'view/faq/ItemView', 'data/AsylumStatusValues', 'underscore'], function (Component, CategoriesView, ItemView, AsylumStatusValues, _) {
+define(['Component', 'view/faq/CategoriesView', 'view/faq/ItemView', 'data/AsylumStatusValues', 'data/FAQAPI', 'underscore'], function (Component, CategoriesView, ItemView, AsylumStatusValues, faqAPI, _) {
 
     var $ = window.$;
 
@@ -18,13 +18,13 @@ define(['Component', 'view/faq/CategoriesView', 'view/faq/ItemView', 'data/Asylu
         return html;
     };
 
-    FAQView.prototype.attach = function(oldNode, node) {
+    FAQView.prototype.attach = function (oldNode, node) {
         Component.prototype.attach.call(this, oldNode, node);
         $('#faq_ask_question').on('click', _.bind(this.openAskQuestionModal, this));
         $('#faq_question_submit').on('click', _.bind(this.submitQuestion, this));
     };
 
-    FAQView.prototype.openAskQuestionModal = function() {
+    FAQView.prototype.openAskQuestionModal = function () {
         $('#faq_ask_question_modal').i18n();
         $('#faq_ask_question_modal').openModal();
         $('#faq_question_close').hide();
@@ -34,11 +34,10 @@ define(['Component', 'view/faq/CategoriesView', 'view/faq/ItemView', 'data/Asylu
         $('#faq_question_feedback').hide();
         $('#faq_question_field_phone').hide();
         $('#faq_question_field_phone').val('+491234567890');
-
     };
 
-    FAQView.prototype.submitQuestion = function() {
-        if ( $('#faq_question_field_phone').val() != '+491234567890' ) {
+    FAQView.prototype.submitQuestion = function () {
+        if ($('#faq_question_field_phone').val() != '+491234567890') {
             return;
         }
         $('#faq_question_close').show();
@@ -46,6 +45,30 @@ define(['Component', 'view/faq/CategoriesView', 'view/faq/ItemView', 'data/Asylu
         $('#faq_question_cancel').hide();
         $('#faq_question_form').hide();
         $('#faq_question_feedback').show();
+
+        var data = {
+            "county": 123123,
+            "translations": {
+                "ar": {"question": ""},
+                "en": {"question": ""},
+                "de": {"question": ""},
+                "fr": {"question": ""}
+            }
+        };
+        var langState = GSW.BrowserLanguage.getState();
+        var lang = (langState && langState.selected) || "de";
+        if ( data.translations[lang] ) {
+            var question = $('#faq_question_field_question').val() || "";
+            if ( question && question !== "" ) {
+                data.translations[lang].question = question.trim();
+            }
+            $.ajax({
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                type: 'POST',
+                url: faqAPI.faqurl
+            });
+        }
     };
 
     FAQView.prototype.setState = function (state, namespace) {

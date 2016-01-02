@@ -16,7 +16,6 @@ define(['data/EmergencyAPI', 'underscore', 'Component'], function (API, _, Compo
 
             var selectedLanguage = state.language.selected;
 
-
             _.each(items, function (item) {
                 if (item.translations[selectedLanguage] !== undefined) {
                     html += '<li>' +
@@ -51,7 +50,7 @@ define(['data/EmergencyAPI', 'underscore', 'Component'], function (API, _, Compo
     };
 
     EmergencyView.prototype.update = function (node) {
-        _.bind(Component.prototype.attach, this)(node);
+        Component.prototype.attach.call(this, node);
         $(node).find(".collapsible").collapsible();
     };
 
