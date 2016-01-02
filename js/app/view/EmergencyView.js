@@ -9,7 +9,6 @@ define(['data/EmergencyAPI', 'underscore', 'Component'], function (API, _, Compo
         html += '<div><ul class="collapsible popout emergency-collapse" data-collapsible="accordion">';
 
         if (state.emergencynumbers != null) {
-            console.log(state.emergencynumbers.numbers);
             var items = state.emergencynumbers.numbers;
 
             var selectedLanguage = state.language.selected;
@@ -19,9 +18,9 @@ define(['data/EmergencyAPI', 'underscore', 'Component'], function (API, _, Compo
                 if (item.translations[selectedLanguage] !== undefined) {
                     html += '<li>' +
                         '<div class="collapsible-header">' + item.translations[selectedLanguage].name + ' <a href="tel://' + item.number + '">' + item.number + '</a></div>' +
-                        '<div class="collapsible-body" style="margin-left: 1%">' + item.translations[selectedLanguage].description + '</div>' +
+                        '<div class="collapsible-body">' + item.translations[selectedLanguage].description + '</div>' +
                         '</li>';
-                }else {
+                } else {
 
                     html = '<div class="row">' +
                             '<div class="col s12 m6">' +
@@ -46,8 +45,13 @@ define(['data/EmergencyAPI', 'underscore', 'Component'], function (API, _, Compo
 
     EmergencyView.prototype.attach = function (oldNode, newNode) {
         _.bind(Component.prototype.attach, this)(oldNode, newNode);
-        $(".collapsible").collapsible();
-    }
+        $(newNode).collapsible();
+    };
+
+    EmergencyView.prototype.update = function (node) {
+        _.bind(Component.prototype.attach, this)(node);
+        $(node).find(".collapsible").collapsible();
+    };
 
     function EmergencyView(selector) {
         Component.call(this, selector);
