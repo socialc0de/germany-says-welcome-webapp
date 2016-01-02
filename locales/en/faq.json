@@ -1,0 +1,11 @@
+{
+  "heading": "Ask a question...",
+  "firstname": "First name",
+  "lastname": "Last name",
+  "email": "Email address",
+  "your_question": "Your question",
+  "feedback": "Vielen Dank für Ihre Frage. Wir sammeln die Fragen und beantworten die am häufigsten gestellten Fragen in einem bestimmten zeitlichen Rhythmus.",
+  "submit": "Submit question",
+  "cancel": "Cancel",
+  "close": "Close"
+}

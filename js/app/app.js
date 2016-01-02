@@ -69,7 +69,6 @@ require(['domReady!',
         window.GSW = {
             AsylumState: asylumStatus,
             BrowserLanguage: browserLanguage,
-            FAQ: faq,
             Phrasebook: phrasebook,
             Router: router,
             FAQ: faq,
