@@ -7,7 +7,7 @@ define(['Component', 'view/faq/CategoriesView', 'view/faq/ItemView', 'data/Asylu
     var html = '<div>' +
         '<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">' +
         '<a class="btn-floating btn-large blue">' +
-        '<i id="faq_ask_question" class="large material-icons">record_voice_over</i>' +
+        '<i id="faq_ask_question" class="large material-icons">live_help</i>' +
         '</a>' +
         '</div>' +
         '<div id="faq_categories"></div>' +
@@ -33,6 +33,7 @@ define(['Component', 'view/faq/CategoriesView', 'view/faq/ItemView', 'data/Asylu
         $('#faq_question_form').show();
         $('#faq_question_feedback').hide();
         $('#faq_question_field_phone').hide();
+        $('#faq_question_form').find("input").val("");
         $('#faq_question_field_phone').val('+491234567890');
     };
 
@@ -48,20 +49,15 @@ define(['Component', 'view/faq/CategoriesView', 'view/faq/ItemView', 'data/Asylu
 
         var data = {
             "county": 123123,
-            "translations": {
-                "ar": {"question": ""},
-                "en": {"question": ""},
-                "de": {"question": ""},
-                "fr": {"question": ""}
-            }
+            "translations": {}
         };
         var langState = GSW.BrowserLanguage.getState();
-        var lang = (langState && langState.selected) || "de";
-        if ( data.translations[lang] ) {
-            var question = $('#faq_question_field_question').val() || "";
-            if ( question && question !== "" ) {
-                data.translations[lang].question = question.trim();
-            }
+        var lang = (langState && langState.selected) || "de";
+        var question = $('#faq_question_field_question').val() || "";
+        question = question.trim();
+        if (question && question !== "") {
+            data.translations[lang] = {};
+            data.translations[lang].question = question.trim();
             $.ajax({
                 contentType: "application/json",
                 data: JSON.stringify(data),
