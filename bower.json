@@ -14,7 +14,7 @@
     "material-design-icons": "~2.0.0",
     "Materialize": "materialize#=0.97.2",
     "hammerjs": "~2.0.4",
-    "js-cookie": "~2.0.4",
+    "js-cookie": "~2.0.4"
   },
   "moduleType": "amd",
   "moduleName": "refugees-welcome-app-js",
