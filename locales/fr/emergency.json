@@ -1,6 +1,5 @@
 {
-  "police": "Police",
-  "phone": "Téléphone:",
-  "name": "Titre",
-  "police-text": "La police est un organe exécutif de l'Etat. Vos pouvoirs sont réglementées (Loi de police) en droit de la police, entre autres choses. Elle doit assurer dans la plupart des états des tâches que la sécurité et l'ordre public ou redonnent de réglementer la circulation routière et de surveiller et d'enquêter sur l'autorité de poursuite pénale et les actions désordonnées."
+  "Error Head": "Désolé",
+  "Error Body": "Les appels d'urgence ne sont pas disponibles dans la langue demandée par eux",
+  "Error Link": "Passer à une autre langue"
 }
