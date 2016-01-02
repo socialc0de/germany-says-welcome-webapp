@@ -15,7 +15,7 @@ define(['underscore', 'hoverboard'], function (_, Hoverboard) {
             fallbackLng: 'de',
             preload: ['ar', 'de', 'en', 'fr'],
             ns: {
-                namespaces: ['sidenav','settings','emergency'],
+                namespaces: ['sidenav','settings','emergency', 'faq'],
                 defaultNS: ['sidenav']
             }
         };

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <link type="text/css" rel="stylesheet" href="css/app.css" media="screen,projection"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    
     <link rel="shortcut icon" type="image/png" href="images/logo_small.png">
 </head>
 
@@ -33,6 +33,7 @@
     </div>
     <div id="faq_container" class="main-container">
         <h4 class="hide-on-med-and-down" data-i18n="sidenav:faq">FAQ</h4>
+
         <div id="faq"></div>
     </div>
     <div id="map_container" class="main-container">
@@ -41,11 +42,13 @@
 
     <div id="phrasebook_container" class="main-container">
         <h4 class="hide-on-med-and-down" data-i18n="sidenav:phrasebook">Phrasebook</h4>
+
         <div id="phrasebook"></div>
     </div>
 
     <div id="emergency_container" class="main-container">
         <h4 class="hide-on-med-and-down" data-i18n="sidenav:emergency">Emergency</h4>
+
         <div id="emergency"></div>
     </div>
 
@@ -55,6 +58,45 @@
     </div>
 
 </main>
+
+<div id="faq_ask_question_modal" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h4 data-i18n="faq:heading">Ask a question...</h4>
+
+        <div id="faq_question_form" class="row">
+            <form class="col">
+                <div class="row">
+                    <div class="input-field">
+                        <input id="faq_question_field_first_name" type="text">
+                        <label for="faq_question_field_first_name" data-i18n="faq:firstname">First Name</label>
+                    </div>
+                    <div class="input-field">
+                        <input id="faq_question_field_last_name" type="text">
+                        <label for="faq_question_field_last_name" data-i18n="faq:lastname">Last Name</label>
+                    </div>
+                    <div class="input-field">
+                        <input id="faq_question_field_email" type="text">
+                        <label for="faq_question_field_email" data-i18n="faq:email">E-Mail</label>
+                    </div>
+                    <div class="input-field">
+                        <textarea id="faq_question_field_question" class="materialize-textarea"></textarea>
+                        <label for="faq_question_field_question" data-i18n="faq:your_question">Your question</label>
+                    </div>
+                </div>
+                <input type="text" id="faq_question_field_phone" />
+            </form>
+        </div>
+        <div id="faq_question_feedback" data-i18n="faq:feedback">
+            Vielen Dank für Ihre Frage. Wir sammeln die Fragen und beantworten die am häufigsten gestellten
+            Fragen in einem bestimmten zeitlichen Rhythmus.
+        </div>
+    </div>
+    <div class="modal-footer" class="row">
+        <a id="faq_question_submit" href="#!" class="modal-action btn-flat" data-i18n="faq:submit">Submit</a>
+        <a id="faq_question_cancel" href="#!" class="modal-action modal-close btn-flat" data-i18n="faq:cancel">Cancel</a>
+        <a id="faq_question_close" href="#!" class="modal-action modal-close btn-flat" data-i18n="faq:close">Close</a>
+    </div>
+</div>
 
 
 <script type="text/javascript" src="js/third-party/jquery.js"></script>
