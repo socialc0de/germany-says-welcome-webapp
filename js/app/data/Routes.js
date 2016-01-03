@@ -20,6 +20,8 @@ define({
     settings_section: 'settings/{section}',
 
     /* Emergency */
-    emergency: 'emergency'
+    emergency: 'emergency',
 
+    /* map */
+    map_open_cat: 'map/{cat}'
 });
