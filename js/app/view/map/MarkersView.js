@@ -7,6 +7,9 @@ define(['Component', 'underscore'], function (Component, _) {
             loadMap();
         }
 
+        //set the image path to our css folder
+        L.Icon.Default.imagePath = 'css/third-party/leaflet/images/';
+
         var map = state.poi || {};
         var lang = (state.language && state.language.selected) || "en";
 
@@ -14,7 +17,7 @@ define(['Component', 'underscore'], function (Component, _) {
         if (this.localCategories === undefined && !_.isEmpty(map.categories)) {
             self.localCategories = {};
             self.layers = {};
-            
+
             _.each(map.categories, function (cat) {
                 if (!cat.translations || !cat.translations[lang]) {
                     //ignore category where no translation is available
@@ -72,8 +75,6 @@ define(['Component', 'underscore'], function (Component, _) {
 
         //set berlin as default location
         var defaultLocation = [52.519444, 13.406667];
-        //set the image path to our css folder
-        L.Icon.Default.imagePath = 'css/third-party/leaflet/images/';
 
         var tiles = L.tileLayer(
                 'http://{s}.osm.germany-says-welcome.de/osm/{z}/{x}/{y}.png', {
