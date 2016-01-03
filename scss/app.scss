@@ -43,11 +43,17 @@
 header, main, footer {
   padding-left: 250px;
   padding-right: 10px;
+  padding-top: 10px;
 }
 
 @media only screen and (max-width : 992px) {
   header, main, footer {
     padding-left: 0;
+    padding-top: 0px;
+  }
+
+  main {
+    padding-top: 8px;
   }
 }
 
