@@ -30,6 +30,7 @@ require(['domReady!',
         'model/EmergencyNumbers',
         'Router', 'data/Routes',
         'view/MainView',
+        'view/DashboardView',
         'view/PhrasebookView',
         'view/FAQView',
         'view/SideNavView',
@@ -44,6 +45,7 @@ require(['domReady!',
               Router,
               routes,
               MainView,
+              DashboardView,
               PhrasebookView,
               FAQView,
               SideNavView,
@@ -82,6 +84,10 @@ require(['domReady!',
         var sideNav = new SideNavView("#slide-out");
         sideNav.subscribe(router, 'router');
         sideNav.subscribe(browserLanguage, 'language');
+
+        var dashboardView = new DashboardView("#dashboard");
+        dashboardView.subscribe(router, 'router');
+        dashboardView.subscribe(browserLanguage, 'language');
 
         var settingsView = new SettingsView('#settings');
         settingsView.subscribe(router, 'router');
