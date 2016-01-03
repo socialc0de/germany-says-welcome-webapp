@@ -81,6 +81,20 @@ gulp.task('deps_underscore', function () {
     ]).pipe(gulp.dest('js/third-party'));
 });
 
+gulp.task('deps_leaflet', function () {
+    gulp.src([
+        'bower_components/leaflet/dist/leaflet.js',
+        'bower_components/leaflet.markercluster/dist/leaflet.markercluster.js'
+    ]).pipe(gulp.dest('js/third-party'));
+    gulp.src(['bower_components/leaflet/dist/images/*'])
+        .pipe(gulp.dest('css/third-party/leaflet/images'));
+    gulp.src([
+        'bower_components/leaflet/dist/leaflet.css',
+        'bower_components/leaflet.markercluster/dist/MarkerCluster.css',
+        'bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css'
+    ]).pipe(gulp.dest('scss/third-party/leaflet'));
+});
+
 gulp.task('deps', [
     'deps_i18next',
     'deps_handlebars',
@@ -92,6 +106,7 @@ gulp.task('deps', [
     'deps_requirejs',
     'deps_underscore',
     'deps_vdom',
+    'deps_leaflet'
 ], function () {
 });
 
