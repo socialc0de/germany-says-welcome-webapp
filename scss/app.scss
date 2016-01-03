@@ -1,18 +1,20 @@
 @charset "UTF-8";
 
-// Mixins
-@import "third-party/materialize/components/prefixer";
+// Variables;
 @import "third-party/materialize/components/mixins";
 @import "third-party/materialize/components/color";
 
-// Variables;
 @import "components/variables";
+@import "third-party/materialize/components/variables";
 
 // Reset
 @import "third-party/materialize/components/normalize";
 
 // components
 @import "third-party/materialize/components/global";
+@import "third-party/materialize/components/icons-material-design";
+@import "third-party/materialize/components/grid";
+@import "third-party/materialize/components/navbar";
 @import "third-party/materialize/components/roboto";
 @import "third-party/materialize/components/typography";
 @import "third-party/materialize/components/cards";
@@ -31,9 +33,12 @@
 @import "third-party/materialize/components/sideNav";
 @import "third-party/materialize/components/preloader";
 @import "third-party/materialize/components/slider";
+@import "third-party/materialize/components/carousel";
 @import "third-party/materialize/components/date_picker/default.scss";
 @import "third-party/materialize/components/date_picker/default.date.scss";
 @import "third-party/materialize/components/date_picker/default.time.scss";
+
+// Our mixins;
 
 header, main, footer {
   padding-left: 250px;
@@ -73,7 +78,7 @@ header nav li.nav-logo {
   &:hover {
     background-color: #333 !important;
     color: #ff4081 !important;
-    @include transition(background-color .5s .1s);
+    transition: background-color .5s .1s;
   }
 }
 
@@ -91,7 +96,7 @@ header nav li.nav-logo {
   font-size: 0.9em;
   &:hover {
     color: #ff4081 !important;
-    @include transition(color .5s .1s);
+    transition: color .5s .1s;
   }
 }
 
@@ -106,7 +111,7 @@ header nav li.nav-logo {
   &:hover {
     text-decoration: underline;
     color: #ff4081 !important;
-    @include transition(color .5s .1s);
+    transition: color .5s .1s;
   }
 }
 

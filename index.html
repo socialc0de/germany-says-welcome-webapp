@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <link type="text/css" rel="stylesheet" href="css/app.css" media="screen,projection"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -11,17 +11,27 @@
 <body>
 <header>
     <nav class="hide-on-large-only">
-        <ul>
-            <li class="left">
-                <a id="slide-out-toggle" href="#" data-activates="slide-out" class="button-collapse hide-on-large-only">
-                    <i class="material-icons">menu</i>
-                </a>
-            </li>
-            <li>Germany Says Welcome</li>
-            <li class="nav-logo right">
-                <a href="http://www.germany-says-welcome.de"><img src="images/logo.svg" width="25px"/></a>
-            </li>
-        </ul>
+        <div class="nav-wrapper">
+            <ul class="left">
+                <li>
+                    <a id="slide-out-toggle" href="#" data-activates="slide-out"
+                       class="button-collapse hide-on-large-only">
+                        <i class="material-icons">menu</i>
+                    </a>
+                </li>
+            </ul>
+            <ul>
+                <li>Germany Says Welcome</li>
+            </ul>
+            <ul class="right">
+                <li class="nav-logo right">
+                    <a href="http://www.germany-says-welcome.de"><img src="images/logo.svg" width="25px"/></a>
+                </li>
+                <li class="right">
+                    <a href=""><i class="material-icons">web</i></a>
+                </li>
+            </ul>
+        </div>
     </nav>
     <ul id="slide-out">
     </ul>
@@ -83,7 +93,7 @@
                         <label for="faq_question_field_question" data-i18n="faq:your_question">Your question</label>
                     </div>
                 </div>
-                <input type="text" id="faq_question_field_phone" />
+                <input type="text" id="faq_question_field_phone"/>
             </form>
         </div>
         <div id="faq_question_feedback" data-i18n="faq:feedback">
@@ -93,7 +103,8 @@
     </div>
     <div class="modal-footer" class="row">
         <a id="faq_question_submit" href="#!" class="modal-action btn-flat" data-i18n="faq:submit">Submit</a>
-        <a id="faq_question_cancel" href="#!" class="modal-action modal-close btn-flat" data-i18n="faq:cancel">Cancel</a>
+        <a id="faq_question_cancel" href="#!" class="modal-action modal-close btn-flat"
+           data-i18n="faq:cancel">Cancel</a>
         <a id="faq_question_close" href="#!" class="modal-action modal-close btn-flat" data-i18n="faq:close">Close</a>
     </div>
 </div>

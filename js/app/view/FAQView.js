@@ -47,15 +47,15 @@ define(['Component', 'view/faq/CategoriesView', 'view/faq/ItemView', 'data/Asylu
         $('#faq_question_form').hide();
         $('#faq_question_feedback').show();
 
-        var data = {
-            "county": 123123,
-            "translations": {}
-        };
         var langState = GSW.BrowserLanguage.getState();
         var lang = (langState && langState.selected) || "de";
         var question = $('#faq_question_field_question').val() || "";
         question = question.trim();
         if (question && question !== "") {
+            var data = {
+                "county": 123123,
+                "translations": {}
+            };
             data.translations[lang] = {};
             data.translations[lang].question = question.trim();
             $.ajax({
