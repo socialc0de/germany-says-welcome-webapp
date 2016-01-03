@@ -31,7 +31,7 @@ define(['Component'], function (Component, AsylumStatusValues) {
 
         '<div class="card col s4" style="height: 25%; width: 30%;">' +
         '<div class="card-image">' +
-        '<img src="images/sample-1.jpg">' +
+        '<img src="images/emergency.jpg">' +
         '<span class="card-title">Card Title</span>' +
         '</div>' +
         '<div class="card-content">' +
