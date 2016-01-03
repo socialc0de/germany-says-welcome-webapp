@@ -32,6 +32,7 @@ require(['domReady!',
         'Router', 'data/Routes',
         'view/MainView',
         'view/MapView',
+        'view/DashboardView',
         'view/PhrasebookView',
         'view/FAQView',
         'view/SideNavView',
@@ -48,6 +49,7 @@ require(['domReady!',
               routes,
               MainView,
               MapView,
+              DashboardView,
               PhrasebookView,
               FAQView,
               SideNavView,
@@ -90,6 +92,10 @@ require(['domReady!',
         sideNav.subscribe(router, 'router');
         sideNav.subscribe(browserLanguage, 'language');
 
+        var dashboardView = new DashboardView("#dashboard");
+        dashboardView.subscribe(router, 'router');
+        dashboardView.subscribe(browserLanguage, 'language');
+
         var settingsView = new SettingsView('#settings');
         settingsView.subscribe(router, 'router');
         settingsView.subscribe(browserLanguage, 'language');
@@ -110,7 +116,7 @@ require(['domReady!',
         emergencyView.subscribe(router, 'router');
         emergencyView.subscribe(browserLanguage, 'language');
         emergencyView.subscribe(emergencynumbers, 'emergencynumbers');
-        
+
         var mapView = new MapView('#map');
         mapView.subscribe(router, 'router');
         mapView.subscribe(browserLanguage, 'language');
@@ -119,10 +125,10 @@ require(['domReady!',
 
 function addCollapsibleToggle() {
     window.$.fn.extend({
-        collapsible: (function() {
+        collapsible: (function () {
             _collapsible = jQuery.fn.collapsible;
 
-            return function(action) {
+            return function (action) {
                 if (typeof action !== 'string') {
                     return _collapsible.apply(this, arguments);
                 }
@@ -145,7 +151,7 @@ function addCollapsibleToggle() {
                     duration: 350,
                     easing: "easeOutQuart",
                     queue: false,
-                    complete: function() {
+                    complete: function () {
                         $body.css('height', '');
                     }
                 });
