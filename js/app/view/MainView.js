@@ -22,6 +22,7 @@ define(["underscore"], function(_) {
         el.removeClass("active");
         el = $("#" + section + "_container")
         el.addClass("active");
+        $("html, body").animate({ scrollTop: 0 }, "slow");
         return state;
     };
 
