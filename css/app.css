@@ -9118,6 +9118,9 @@ div#map_categories {
   width: 100%;
   height: 500px; }
 
+.Dashboard-Card {
+  margin-right: 30px; }
+
 .Dashboard-Card-Image {
   width: 320px;
   height: 230px;
