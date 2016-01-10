@@ -1,5 +1,5 @@
 {
-  "Error Head": "Entschuldigung",
-  "Error Body": "Die Notrufe sind in der von ihnen gewünschten Sprache nicht verfügbar",
-  "Error Link": "Zu anderer Sprache wechseln"
+  "Error-Head": "Entschuldigung",
+  "Error-Body": "Die Notrufe sind in der von ihnen gewünschten Sprache nicht verfügbar",
+  "Error-Link": "Zu anderer Sprache wechseln"
 }

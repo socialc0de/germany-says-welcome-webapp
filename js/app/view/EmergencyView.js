@@ -27,11 +27,11 @@ define(['data/EmergencyAPI', 'underscore', 'Component'], function (API, _, Compo
                         '<div class="col s12 m6">' +
                         '<div class="card blue-grey darken-1" style="width: 30%;">' +
                         '<div class="card-content white-text">' +
-                        '<span class="card-title" data-i18n="emergency:Error Head"></span>' +
-                        '<p data-i18n="emergency:Error Body"></p>' +
+                        '<span class="card-title">' + $.i18n.t("emergency:Error-Head") + '</span>' +
+                        '<p>' + $.i18n.t("emergency:Error-Body") + '</p>' +
                         '</div>' +
                         '<div class="card-action">' +
-                        '<a href="index.html#settings/language" data-i18n="emergency:Error Link"></a>' +
+                        '<a href="index.html#settings/language">' + $.i18n.t("emergency:Error-Link") + '</a>' +
                         '</div>' +
                         '</div>' +
                         '</div>' +
