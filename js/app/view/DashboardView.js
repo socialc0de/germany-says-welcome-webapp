@@ -5,79 +5,73 @@ define(['Component'], function (Component, AsylumStatusValues) {
 
     DashboardView.prototype = Object.create(Component.prototype);
 
-
-    var html = '<div><div class="container">' +
-        '<div class="row">' +
-        '<div class="col s12">' +
-        '<div class="card col s4 Dashboard-Card" style="height: 25%; width: 30%;">' +
-        '<div class="card-image">' +
-        '<img class="Dashboard-Card-Image" src="images/FAQ.jpg" alt="FAQ" />' +
-        '<span class="card-title"><a href="#faq" data-i18n="dashboard:FAQ Title">FAQ</a></span>' +
-        '</div>' +
-        '<div class="card-content">' +
-        '<p data-i18n="dashboard:FAQ Description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>' +
-        '</div>' +
-        '</div>' +
-
-        '<div class="card col s4 Dashboard-Card" style="height: 25%; width: 30%;">' +
-        '<div class="card-image">' +
-        '<img class="Dashboard-Card-Image" src="images/Map.jpg" alt="Map" />' +
-        '<span class="card-title"><a data-i18n="dashboard:Map Title" href="#map">Map</a></span>' +
-        '</div>' +
-        '<div class="card-content">' +
-        '<p data-i18n="dashboard:Map Description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>' +
-        '</div>' +
-        '</div>' +
-        '<div class="card col s4 Dashboard-Card" style="height: 25%; width: 30%;">' +
-        '<div class="card-image">' +
-        '<img class="Dashboard-Card-Image" src="images/phrasebook.jpg" alt="Phrasebook" />' +
-        '<span class="card-title"><a data-i18n="dashboard:Phrasebook Title" href="#phrasebook">Phrasebook</a></span>' +
-        '</div>' +
-        '<div class="card-content">' +
-        '<p data-i18n="dashboard:Phrasebook Description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>' +
-        '</div>' +
-        '</div>' +
-        '</div>' +
-        '</div>' +
-
-        '<div class="row">' +
-        '<div class="col s12">' +
-
-        '<div class="card col s4 Dashboard-Card" style="height: 25%; width: 30%;">' +
-        '<div class="card-image">' +
-        '<img class="Dashboard-Card-Image" src="images/emergency.jpg" alt="Emergency" />' +
-        '<span class="card-title"><a data-i18n="dashboard:Emergency Title" href="#emergency">Emergency</a></span>' +
-        '</div>' +
-        '<div class="card-content">' +
-        '<p data-i18n="dashboard:Emergency Description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>' +
-        '</div>' +
-        '</div>' +
-
-        '<div class="card col s4 Dashboard-Card" style="height: 25%; width: 30%;">' +
-        '<div class="card-image">' +
-        '<img class="Dashboard-Card-Image" src="images/sample-1.jpg" alt="About" />' +
-        '<span class="card-title"><a data-i18n="dashboard:About Title" href=""></a></span>' +
-        '</div>' +
-        '<div class="card-content">' +
-        '<p data-i18n="dashboard:About Description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>' +
-        '</div>' +
-        '</div>' +
-
-        '<div class="card col s4 Dashboard-Card" style="height: 25%; width: 30%;">' +
-        '<div class="card-image">' +
-        '<img class="Dashboard-Card-Image" src="images/sample-1.jpg" alt="Settings" />' +
-        '<span class="card-title"><a data-i18n="dashboard:Settings Title" href="#settings"></a></span>' +
-        '</div>' +
-        '<div class="card-content">' +
-        '<p data-i18n="dashboard:Settings Description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>' +
-        '</div>' +
-        '</div>' +
-        '</div>' +
-        '</div>' +
-        '</div>' +
-        '</div>';
-
     DashboardView.prototype.render = function (state) {
+        var html = '<div><div class="container">' +
+                '<div class="row">' +
+                    '<div class="col s12">' +
+                    '<div class="card col s4 Dashboard-Card" style="height: 25%; width: 30%;">' +
+                    '<div class="card-image">' +
+                    '<img class="Dashboard-Card-Image" src="images/FAQ.jpg" alt="FAQ" />' +
+                    '<span class="card-title"><a href="#faq">' + $.i18n.t("dashboard:FAQ_Title") + '</a></span>' +
+                '</div>' +
+                    '<div class="card-content">' +
+                    '<p>' + $.i18n.t("dashboard:FAQ_Description") + '</p>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="card col s4 Dashboard-Card" style="height: 25%; width: 30%;">' +
+                    '<div class="card-image">' +
+                    '<img class="Dashboard-Card-Image" src="images/Map.jpg" alt="Map" />' +
+                    '<span class="card-title"><a href="#map">' + $.i18n.t("dashboard:Map_Title") + '</a></span>' +
+                '</div>' +
+                    '<div class="card-content">' +
+                    '<p>' + $.i18n.t("dashboard:Map_Description") + '</p>' +
+                '</div>' +
+                '</div>' +
+                '<div class="card col s4 Dashboard-Card" style="height: 25%; width: 30%;">' +
+                '<div class="card-image">' +
+                    '<img class="Dashboard-Card-Image" src="images/phrasebook.jpg" alt="Phrasebook" />' +
+                    '<span class="card-title"><a href="#phrasebook">' + $.i18n.t("dashboard:Phrasebook_Title") + '</a></span>' +
+                '</div>' +
+                '<div class="card-content">' +
+                    '<p>' + $.i18n.t("dashboard:Phrasebook_Description") + '</p>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div class="row">' +
+                '<div class="col s12">' +
+                '<div class="card col s4 Dashboard-Card" style="height: 25%; width: 30%;">' +
+                '<div class="card-image">' +
+                    '<img class="Dashboard-Card-Image" src="images/emergency.jpg" alt="Emergency" />' +
+                    '<span class="card-title"><a href="#emergency">' + $.i18n.t("dashboard:Emergency_Title") + '</a></span>' +
+                '</div>' +
+                    '<div class="card-content">' +
+                    '<p>' + $.i18n.t("dashboard:Emergency_Description") + '</p>' +
+                '</div>' +
+                '</div>' +
+                    '<div class="card col s4 Dashboard-Card" style="height: 25%; width: 30%;">' +
+                    '<div class="card-image">' +
+                    '<img class="Dashboard-Card-Image" src="images/sample-1.jpg" alt="About" />' +
+                    '<span class="card-title"><a href="">' + $.i18n.t("dashboard:About_Title") + '</a></span>' +
+                '</div>' +
+                '<div class="card-content">' +
+                    '<p>' + $.i18n.t("dashboard:About_Description") + '</p>' +
+                '</div>' +
+                '</div>' +
+                    '<div class="card col s4 Dashboard-Card" style="height: 25%; width: 30%;">' +
+                    '<div class="card-image">' +
+                    '<img class="Dashboard-Card-Image" src="images/sample-1.jpg" alt="Settings" />' +
+                    '<span class="card-title"><a href="#settings">' + $.i18n.t("dashboard:Settings_Title") + '</a></span>' +
+                '</div>' +
+                '<div class="card-content">' +
+                    '<p>' + $.i18n.t("dashboard:Settings_Description") + '</p>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+
         return html;
     };
 
@@ -91,7 +85,7 @@ define(['Component'], function (Component, AsylumStatusValues) {
                 break;
             case 'router':
                 if (state.parts && state.parts[0] == 'dashboard' && state.params && state.params.cat) {
-                    return this.state({ cat: state.params.cat }, 'dashboard');
+                    return this.state({cat: state.params.cat}, 'router');
                 }
                 break;
         }

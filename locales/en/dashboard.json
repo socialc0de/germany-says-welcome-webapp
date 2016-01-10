@@ -1,13 +1,15 @@
 {
-  "FAQTitle": "FAQ",
-  "FAQ Description": "",
-  "Map Title": "Map",
-  "Phrasebook Title": "Phrasebook",
-  "Phrasebook Description": "",
-  "Emergency Title": "Emergency",
-  "Emergency Description": "",
-  "About Title": "About",
-  "About Description": "",
-  "Settings Title": "Settings",
-  "Settings Description": ""
+  "FAQ_Title": "FAQ",
+  "FAQ_Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.",
+  "Map_Title": "Karte",
+  "Map_Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.",
+  "Phrasebook_Title": "Wörterbuch",
+  "Phrasebook_Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.",
+  "Emergency_Title": "Notrufe",
+  "Emergency_Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.",
+  "About_Title": "Über Uns",
+  "About_Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.",
+  "Settings_Title": "Einstellungen",
+  "Settings_Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.",
+  "test": "hallo"
 }

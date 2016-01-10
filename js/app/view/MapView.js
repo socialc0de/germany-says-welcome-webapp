@@ -27,16 +27,12 @@ define(['Component', 'view/map/CategoriesView', 'view/map/MarkersView', 'data/PO
                         return this.state(state, "poi");
                         break;
                     case 'router':
-                        if (state.parts && state.parts[0] == 'map' && state.params && state.params.cat) {
-                            this.categoriesView.notify({cat: state.params.cat}, 'poi');
-                            this.markersView.notify({cat: state.params.cat}, 'poi');
-                            return this.state({cat: state.params.cat}, 'poi');
-                        } else if (state.parts && state.parts[0] == 'map') {
+                        if (state.parts && state.parts[0] == 'map') {
                             //notify that the map should be loaded
                             //implement lazy loading in order to display the correct size
                             //of the map
-                            this.markersView.notify({cat: state.params.cat, load: true}, 'poi');
-                            return this.state({cat: state.params.cat, load: true}, 'poi');
+                            this.markersView.notify({load: true}, 'poi');
+                            return this.state({load: true}, 'poi');
                         }
 
                         break;

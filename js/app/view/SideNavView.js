@@ -46,11 +46,9 @@ define(['underscore', 'handlebars', 'Component'],
                         return this.state({ selected: state.parts[0]}, "router");
                     }
                     break;
-                default:
-                    return false;
             }
-            return false;
 
+            return false;
         };
 
         SideNav.prototype.attach = function (oldNode, newNode) {
