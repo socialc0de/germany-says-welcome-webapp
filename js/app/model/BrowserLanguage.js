@@ -14,6 +14,7 @@ define(['underscore', 'hoverboard'], function (_, Hoverboard) {
             cookieExpirationTime: 525600, // 365 days in minutes
             fallbackLng: 'de',
             preload: ['ar', 'de', 'en', 'fr'],
+            load: 'unspecific',
             ns: {
                 namespaces: ['sidenav','settings','emergency', 'faq'],
                 defaultNS: ['sidenav']
