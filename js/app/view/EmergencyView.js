@@ -25,8 +25,8 @@ define(['data/EmergencyAPI', 'underscore', 'Component'], function (API, _, Compo
                         '</li>';
                 } else {
                     html = '<div class="row">' +
-                        '<div class="col s12">' +
-                        '<div class="card blue-grey darken-1">' +
+                        '<div class="col s12 m6">' +
+                        '<div class="card blue-grey darken-1" style="width: 30%;">' +
                         '<div class="card-content white-text">' +
                         '<span class="card-title" data-i18n="emergency:Error Head"></span>' +
                         '<p data-i18n="emergency:Error Body"></p>' +

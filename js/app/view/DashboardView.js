@@ -1,6 +1,6 @@
 /**
  * Created by taho on 02.01.16.
-*/
+ */
 define(['Component'], function (Component, AsylumStatusValues) {
 
     DashboardView.prototype = Object.create(Component.prototype);
@@ -9,33 +9,32 @@ define(['Component'], function (Component, AsylumStatusValues) {
     var html = '<div><div class="container">' +
         '<div class="row">' +
         '<div class="col s12">' +
-        '<div class="card col s4" style="height: 25%; width: 30%;">' +
+        '<div class="card col s4 Dashboard-Card" style="height: 25%; width: 30%;">' +
         '<div class="card-image">' +
-        '<img src="images/sample-1.jpg">' +
-        '<span class="card-title">Card Title</span>' +
+        '<img class="Dashboard-Card-Image" src="images/FAQ.jpg" alt="FAQ" />' +
+        '<span class="card-title"><a href="#faq" data-i18n="dashboard:FAQ Title">FAQ</a></span>' +
         '</div>' +
         '<div class="card-content">' +
-        '<p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>' +
+        '<p data-i18n="dashboard:FAQ Description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>' +
         '</div>' +
         '</div>' +
 
-        '<div class="card col s4" style="height: 25%; width: 30%;">' +
+        '<div class="card col s4 Dashboard-Card" style="height: 25%; width: 30%;">' +
         '<div class="card-image">' +
-        '<img src="images/sample-1.jpg">' +
-        '<span class="card-title">Card Title</span>' +
+        '<img class="Dashboard-Card-Image" src="images/Map.jpg" alt="Map" />' +
+        '<span class="card-title"><a data-i18n="dashboard:Map Title" href="#map">Map</a></span>' +
         '</div>' +
         '<div class="card-content">' +
-        '<p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>' +
+        '<p data-i18n="dashboard:Map Description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>' +
         '</div>' +
         '</div>' +
-
-        '<div class="card col s4" style="height: 25%; width: 30%;">' +
+        '<div class="card col s4 Dashboard-Card" style="height: 25%; width: 30%;">' +
         '<div class="card-image">' +
-        '<img src="images/emergency.jpg">' +
-        '<span class="card-title">Card Title</span>' +
+        '<img class="Dashboard-Card-Image" src="images/phrasebook.jpg" alt="Phrasebook" />' +
+        '<span class="card-title"><a data-i18n="dashboard:Phrasebook Title" href="#phrasebook">Phrasebook</a></span>' +
         '</div>' +
         '<div class="card-content">' +
-        '<p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>' +
+        '<p data-i18n="dashboard:Phrasebook Description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>' +
         '</div>' +
         '</div>' +
         '</div>' +
@@ -43,39 +42,40 @@ define(['Component'], function (Component, AsylumStatusValues) {
 
         '<div class="row">' +
         '<div class="col s12">' +
-        '<div class="card col s4" style="height: 25%; width: 30%;">' +
+
+        '<div class="card col s4 Dashboard-Card" style="height: 25%; width: 30%;">' +
         '<div class="card-image">' +
-        '<img src="images/sample-1.jpg">' +
-        '<span class="card-title">Card Title</span>' +
+        '<img class="Dashboard-Card-Image" src="images/emergency.jpg" alt="Emergency" />' +
+        '<span class="card-title"><a data-i18n="dashboard:Emergency Title" href="#emergency">Emergency</a></span>' +
         '</div>' +
         '<div class="card-content">' +
-        '<p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>' +
+        '<p data-i18n="dashboard:Emergency Description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>' +
         '</div>' +
         '</div>' +
 
-        '<div class="card col s4" style="height: 25%; width: 30%;">' +
+        '<div class="card col s4 Dashboard-Card" style="height: 25%; width: 30%;">' +
         '<div class="card-image">' +
-        '<img src="images/sample-1.jpg">' +
-        '<span class="card-title">Card Title</span>' +
+        '<img class="Dashboard-Card-Image" src="images/sample-1.jpg" alt="About" />' +
+        '<span class="card-title"><a data-i18n="dashboard:About Title" href=""></a></span>' +
         '</div>' +
         '<div class="card-content">' +
-        '<p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>' +
+        '<p data-i18n="dashboard:About Description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>' +
         '</div>' +
         '</div>' +
 
-        '<div class="card col s4" style="height: 25%; width: 30%;">' +
+        '<div class="card col s4 Dashboard-Card" style="height: 25%; width: 30%;">' +
         '<div class="card-image">' +
-        '<img src="images/sample-1.jpg">' +
-        '<span class="card-title">Card Title</span>' +
+        '<img class="Dashboard-Card-Image" src="images/sample-1.jpg" alt="Settings" />' +
+        '<span class="card-title"><a data-i18n="dashboard:Settings Title" href="#settings"></a></span>' +
         '</div>' +
         '<div class="card-content">' +
-        '<p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>' +
+        '<p data-i18n="dashboard:Settings Description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>' +
         '</div>' +
         '</div>' +
         '</div>' +
         '</div>' +
-        '</div></div>';
-    console.log("Dashbord logstelle");
+        '</div>' +
+        '</div>';
 
     DashboardView.prototype.render = function (state) {
         return html;
