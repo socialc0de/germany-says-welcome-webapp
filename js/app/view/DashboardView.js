@@ -3,6 +3,8 @@
  */
 define(['Component'], function (Component, AsylumStatusValues) {
 
+    var $ = window.$;
+
     DashboardView.prototype = Object.create(Component.prototype);
 
 
@@ -96,6 +98,18 @@ define(['Component'], function (Component, AsylumStatusValues) {
                 break;
         }
         return false;
+    };
+
+    DashboardView.prototype.attach = function(oldNode, newNode) {
+        Component.prototype.attach.call(this, oldNode, newNode);
+        var element = $(newNode);
+        element.i18n();
+    };
+
+    DashboardView.prototype.update = function(node) {
+        Component.prototype.update.call(this, node);
+        var element = $(node);
+        element.i18n();
     };
 
 
