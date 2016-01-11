@@ -4,6 +4,7 @@ define(['data/EmergencyAPI', 'underscore', 'Component'], function (API, _, Compo
 
     EmergencyView.prototype = Object.create(Component.prototype);
 
+    //TODO: Render placeholder for missing languages on startup of web app.
     EmergencyView.prototype.render = function (state) {
         var html = '';
 
