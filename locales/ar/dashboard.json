@@ -1,15 +1,15 @@
 {
-  "FAQ_Title": "FAQ",
+  "FAQ_Title": "FAQ (ar)",
   "FAQ_Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.",
-  "Map_Title": "Karte",
+  "Map_Title": "Karte (ar)",
   "Map_Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.",
-  "Phrasebook_Title": "Wörterbuch",
+  "Phrasebook_Title": "Wörterbuch (ar)",
   "Phrasebook_Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.",
-  "Emergency_Title": "Notrufe",
+  "Emergency_Title": "Notrufe (ar)",
   "Emergency_Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.",
-  "About_Title": "Über Uns",
+  "About_Title": "Über Uns (ar)",
   "About_Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.",
-  "Settings_Title": "Einstellungen",
+  "Settings_Title": "Einstellungen (ar)",
   "Settings_Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.",
   "test": "hallo"
 }
