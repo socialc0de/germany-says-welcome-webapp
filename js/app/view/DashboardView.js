@@ -38,10 +38,6 @@ define(['Component'], function (Component, AsylumStatusValues) {
             '<p>' + $.i18n.t("dashboard:Phrasebook_Description") + '</p>' +
             '</div>' +
             '</div>' +
-            '</div>' +
-            '</div>' +
-            '<div class="row">' +
-            '<div class="col s12">' +
             '<div class="card col s4 Dashboard-Card" style="height: 25%">' +
             '<div class="card-image">' +
             '<img class="Dashboard-Card-Image" src="images/emergency.jpg" alt="Emergency" />' +

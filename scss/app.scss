@@ -166,10 +166,18 @@ div#map_categories {
   margin-right: 30px;
   height: 25%!important;
   width: 30%!important;
+
+  .card-title {
+      font-weight: bold;
+      a {
+          text-shadow: 2px 2px 4px #000000;
+      }
+  }
 }
 
 .Dashboard-Card-Image {
   width: 320px;
   height: 230px;
   margin-top: 10px;
+  opacity: 0.6;
 }
