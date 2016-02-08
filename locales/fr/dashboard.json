@@ -1,15 +1,16 @@
 {
-  "FAQ_Title": "FAQ (fr)",
-  "FAQ_Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.",
-  "Map_Title": "Karte (fr)",
-  "Map_Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.",
-  "Phrasebook_Title": "Wörterbuch (fr)",
-  "Phrasebook_Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.",
-  "Emergency_Title": "Notrufe (fr)",
-  "Emergency_Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.",
-  "About_Title": "Über Uns (fr)",
+  "FAQ_Title": "FAQ",
+  "FAQ_Description": "Vous trouverez les réponses aux questions les plus fréquemment posées sur divers sujets de la vie quotidienne, de la vie, à la procédure d'asile et les questions de santé.
+",
+  "Map_Title": "Carte",
+  "Map_Description": "Sur la carte, vous pouvez trouver des endroits importants qui peuvent vous aider à mieux trouver leur chemin. Ceux-ci comprennent les centres d'intégration, les bureaux de leur résidence respective, les centres d'orientation des femmes et des hôpitaux.",
+  "Phrasebook_Title": "Phrasebook",
+  "Phrasebook_Description": "Ici vous trouverez une série de phrases simples qui sont traduits en anglais et en arabe, et vous aidera à faire vos préoccupations compris.",
+  "Emergency_Title": "Appels d'urgence",
+  "Emergency_Description": "Ici vous trouverez une liste d'urgence majeure. Entre autres, le numéro d'urgence de la police, le feu, etc.",
+  "About_Title": "A propos de nous",
   "About_Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.",
-  "Settings_Title": "Einstellungen (fr)",
+  "Settings_Title": "Paramètres",
   "Settings_Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.",
   "test": "hallo"
 }
