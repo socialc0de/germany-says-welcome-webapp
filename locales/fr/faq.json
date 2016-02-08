@@ -1,11 +1,11 @@
 {
-  "heading": "Stellen Sie uns eine Frage...",
-  "firstname": "Vorname",
-  "lastname": "Nachmane",
-  "email": "E-Mail-Adresse",
-  "your_question": "Ihre Frage",
-  "feedback": "Vielen Dank für Ihre Frage. Wir sammeln die Fragen und beantworten die am häufigsten gestellten Fragen in einem bestimmten zeitlichen Rhythmus.",
-  "submit": "Frage absenden",
-  "cancel": "Abrechen",
-  "close": "Schließen"
+  "heading": "Posez-nous une question...",
+  "firstname": "Prénom",
+  "lastname": "Nom de famille",
+  "email": "Adresse e-mail",
+  "your_question": "Votre question",
+  "feedback": "Merci pour votre question. Nous collectionnons les questions et le repondons les questions les plus souvents demandées dans un certain rythme temporel.",
+  "submit": "Envoyer question",
+  "cancel": "Abandonner",
+  "close": "Fermer"
 }

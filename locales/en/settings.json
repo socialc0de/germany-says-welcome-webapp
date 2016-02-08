@@ -1,7 +1,7 @@
 {
   "language": "Language",
-  "status": "Asylum Status",
+  "status": "Status of asylum",
   "arrival": "Arrival",
-  "application": "Application for asylum",
+  "application": "Request for asylum",
   "integration": "Integration"
 }

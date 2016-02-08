@@ -1,7 +1,7 @@
 {
-  "language": "لغة",
-  "status": "الحالة اللجوء",
-  "arrival": "Arrival",
-  "application": "Application for asylum",
-  "integration": "Integration"
+  "language": "اللغة",
+  "status": "حالة اللجؤء",
+  "arrival": "الوصول",
+  "application": "حق اللجوء",
+  "integration": "الاندماج"
 }

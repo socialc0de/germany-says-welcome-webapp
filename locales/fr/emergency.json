@@ -1,5 +1,5 @@
 {
-  "Error Head": "Désolé",
-  "Error Body": "Les appels d'urgence ne sont pas disponibles dans la langue demandée par eux",
-  "Error Link": "Passer à une autre langue"
+  "Error Head": "Pardon",
+  "Error Body": "Les appels d'urgence ne sont pas disponibles dans la langue selectionnée",
+  "Error Link": "Changer à autre langue"
 }
