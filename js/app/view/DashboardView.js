@@ -11,7 +11,7 @@ define(['Component'], function (Component, AsylumStatusValues) {
         var html = '<div>' +
             '<div class="row">' +
             '<div class="col s12">' +
-            '<div class="card col s4 Dashboard-Card" style="height: 25%">' +
+            '<div class="card col s4 Dashboard-Card" >' +
             '<div class="card-image">' +
             '<img class="Dashboard-Card-Image" src="images/FAQ.jpg" alt="FAQ" />' +
             '<span class="card-title"><a href="#faq">' + $.i18n.t("dashboard:FAQ_Title") + '</a></span>' +
@@ -20,7 +20,7 @@ define(['Component'], function (Component, AsylumStatusValues) {
             '<p>' + $.i18n.t("dashboard:FAQ_Description") + '</p>' +
             '</div>' +
             '</div>' +
-            '<div class="card col s4 Dashboard-Card" style="height: 25%">' +
+            '<div class="card col s4 Dashboard-Card" >' +
             '<div class="card-image">' +
             '<img class="Dashboard-Card-Image" src="images/Map.jpg" alt="Map" />' +
             '<span class="card-title"><a href="#map">' + $.i18n.t("dashboard:Map_Title") + '</a></span>' +
@@ -29,7 +29,7 @@ define(['Component'], function (Component, AsylumStatusValues) {
             '<p>' + $.i18n.t("dashboard:Map_Description") + '</p>' +
             '</div>' +
             '</div>' +
-            '<div class="card col s4 Dashboard-Card" style="height: 25%">' +
+            '<div class="card col s4 Dashboard-Card" >' +
             '<div class="card-image">' +
             '<img class="Dashboard-Card-Image" src="images/phrasebook.jpg" alt="Phrasebook" />' +
             '<span class="card-title"><a href="#phrasebook">' + $.i18n.t("dashboard:Phrasebook_Title") + '</a></span>' +
@@ -38,7 +38,7 @@ define(['Component'], function (Component, AsylumStatusValues) {
             '<p>' + $.i18n.t("dashboard:Phrasebook_Description") + '</p>' +
             '</div>' +
             '</div>' +
-            '<div class="card col s4 Dashboard-Card" style="height: 25%">' +
+            '<div class="card col s4 Dashboard-Card" >' +
             '<div class="card-image">' +
             '<img class="Dashboard-Card-Image" src="images/emergency.jpg" alt="Emergency" />' +
             '<span class="card-title"><a href="#emergency">' + $.i18n.t("dashboard:Emergency_Title") + '</a></span>' +
@@ -47,7 +47,7 @@ define(['Component'], function (Component, AsylumStatusValues) {
             '<p>' + $.i18n.t("dashboard:Emergency_Description") + '</p>' +
             '</div>' +
             '</div>' +
-            '<div class="card col s4 Dashboard-Card" style="height: 25%">' +
+            '<div class="card col s4 Dashboard-Card" >' +
             '<div class="card-image">' +
             '<img class="Dashboard-Card-Image" src="images/sample-1.jpg" alt="About" />' +
             '<span class="card-title"><a href="">' + $.i18n.t("dashboard:About_Title") + '</a></span>' +
@@ -56,9 +56,9 @@ define(['Component'], function (Component, AsylumStatusValues) {
             '<p>' + $.i18n.t("dashboard:About_Description") + '</p>' +
             '</div>' +
             '</div>' +
-            '<div class="card col s4 Dashboard-Card" style="height: 25%">' +
+            '<div class="card col s4 Dashboard-Card" >' +
             '<div class="card-image">' +
-            '<img class="Dashboard-Card-Image" src="images/sample-1.jpg" alt="Settings" />' +
+            '<img class="Dashboard-Card-Image" src="images/settings.jpg" alt="Settings"/>' +
             '<span class="card-title"><a href="#settings">' + $.i18n.t("dashboard:Settings_Title") + '</a></span>' +
             '</div>' +
             '<div class="card-content">' +
