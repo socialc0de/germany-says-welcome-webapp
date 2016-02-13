@@ -37,11 +37,11 @@ define(['Component', 'view/settings/LanguageRadio'], function (Component, Langua
         return false;
     };
 
-    function LanguageView(selector, browserLanguage) {
+    var LanguageView = function(selector, browserLanguage) {
         Component.call(this, selector);
         this.browserLanguage = browserLanguage;
         this.langRadios = {};
-    }
+    };
 
     return LanguageView;
 

@@ -1,4 +1,4 @@
-define(['Component', 'underscore'], function (Component, _) {
+define(['Component', 'underscore', 'data/POIAPI'], function (Component, _, POIAPI) {
 
     MarkersView.prototype = Object.create(Component.prototype);
 
@@ -77,7 +77,7 @@ define(['Component', 'underscore'], function (Component, _) {
         var defaultLocation = [52.519444, 13.406667];
 
         var tiles = L.tileLayer(
-                'http://{s}.osm.germany-says-welcome.de/osm/{z}/{x}/{y}.png', {
+                POIAPI.tilelayer, {
                     maxZoom: 18
                 });
 
