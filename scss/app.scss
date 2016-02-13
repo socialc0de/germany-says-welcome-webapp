@@ -140,6 +140,16 @@ div#phrasebook_categories > a > div.chip.active {
     color: white;
 }
 
+div#faq_categories > a > div.chip {
+    margin: 3px;
+}
+
+div#faq_categories > a > div.chip.active {
+    background-color: $primary-color;
+    color: white;
+}
+
+
 a.btn-floating {
     background-color: $primary-color !important;
 }

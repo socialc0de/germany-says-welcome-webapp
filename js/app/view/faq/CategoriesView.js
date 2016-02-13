@@ -10,6 +10,7 @@ define(['Component', 'underscore'], function (Component, _) {
         if (!faq.loading && faq.categories ) {
             var self = this;
             _.each(faq.categories, function (cat) {
+                var catname = cat.translations[lang].name;
                 if ( !cat.translations || ! cat.translations[lang] ) {
                     return;
                 }

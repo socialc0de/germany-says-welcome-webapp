@@ -1,5 +1,5 @@
 {
-  "Error Head": "Sorry",
-  "Error Body": "The emergency calls are not available in this language",
-  "Error Link": "Switch to a other language"
+  "Error-Head": "Sorry",
+  "Error-Body": "The emergency calls are not available in this language",
+  "Error-Link": "Switch to a other language"
 }

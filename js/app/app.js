@@ -87,6 +87,7 @@ require(['domReady!',
         // Setup views.
         var mainView = new MainView();
         mainView.subscribe(router, "router");
+        mainView.subscribe(browserLanguage, "language");
 
         var sideNav = new SideNavView("#slide-out");
         sideNav.subscribe(router, 'router');
