@@ -43,34 +43,34 @@
 @import "third-party/leaflet/MarkerCluster.Default";
 
 header, main, footer {
-  padding-left: 250px;
-  padding-right: 10px;
-  padding-top: 10px;
+    padding-left: 250px;
+    padding-right: 10px;
+    padding-top: 10px;
 }
 
 @media only screen and (max-width : 992px) {
-  header, main, footer {
-    padding-left: 0;
-    padding-top: 0px;
-  }
+    header, main, footer {
+        padding-left: 0;
+        padding-top: 0px;
+    }
 
-  main {
-    padding-top: 8px;
-  }
+    main {
+        padding-top: 8px;
+    }
 }
 
 .emergency-collapse {
-  width: 50%;
+    width: 50%;
 }
 
 .emergency-collapse a {
-  float: right;
+    float: right;
 }
 
 @media only screen and (max-width: 850px) {
-  .emergency-collapse {
-    width: 100%;
-  }
+    .emergency-collapse {
+        width: 100%;
+    }
 }
 
 header nav li.nav-logo {
@@ -83,11 +83,11 @@ header nav li.nav-logo {
 }
 
 .side-nav li {
-  &:hover {
-    background-color: #333 !important;
-    color: #ff4081 !important;
-    transition: background-color .5s .1s;
-  }
+    &:hover {
+        background-color: #333 !important;
+        color: #ff4081 !important;
+        transition: background-color .5s .1s;
+    }
 }
 
 .side-nav li.active {
@@ -98,29 +98,29 @@ header nav li.nav-logo {
 }
 
 .side-nav li a {
-  color: #fff !important;
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 0.9em;
-  &:hover {
-    color: #ff4081 !important;
-    transition: color .5s .1s;
-  }
+    color: #fff !important;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.9em;
+    &:hover {
+        color: #ff4081 !important;
+        transition: color .5s .1s;
+    }
 }
 
 .side-nav a.gsw-brand {
-  width:100%;
-  position: absolute;
-  bottom: 80px;
-  text-align: center;
-  line-height: normal;
-  color: #337ab7;
-  opacity: 20;
-  &:hover {
-    text-decoration: underline;
-    color: #ff4081 !important;
-    transition: color .5s .1s;
-  }
+    width:100%;
+    position: absolute;
+    bottom: 80px;
+    text-align: center;
+    line-height: normal;
+    color: #337ab7;
+    opacity: 20;
+    &:hover {
+        text-decoration: underline;
+        color: #ff4081 !important;
+        transition: color .5s .1s;
+    }
 }
 
 div.main-container {
@@ -141,7 +141,7 @@ div#phrasebook_categories > a > div.chip.active {
 }
 
 a.btn-floating {
-  background-color: $primary-color !important;
+    background-color: $primary-color !important;
 }
 
 div#map_categories > a > div.chip.active {
@@ -161,23 +161,21 @@ div#map_categories {
 }
 
 // Dashboard
-
-.Dashboard-Card {
-  margin-right: 30px;
-  height: 25%!important;
-  width: 30%!important;
-
-  .card-title {
-      font-weight: bold;
-      a {
-          text-shadow: 2px 2px 4px #000000;
-      }
-  }
+.card {
+    .card-title {
+        font-weight: 400;
+        a {
+            color: darken(#003171, 1%)!important;
+            text-shadow: 2px 2px 4px white;
+        }
+    }
 }
 
-.Dashboard-Card-Image {
-  width: 320px;
-  height: 230px;
-  margin-top: 10px;
-  opacity: 0.6;
+.card-image {
+    img {
+        width: 320px;
+        height: 230px;
+        margin-top: 10px;
+        opacity: 0.6;
+    }
 }
