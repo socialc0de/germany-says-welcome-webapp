@@ -110,9 +110,7 @@ gulp.task('deps', [
 ], function () {
 });
 
-gulp.task('sass', function () {
-    gulp.src(['bower_components/Materialize/sass/**/*'])
-        .pipe(gulp.dest('scss/third-party/materialize'));
+gulp.task('sass', ['deps'], function () {
     gulp.src('scss/app.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('css'));
