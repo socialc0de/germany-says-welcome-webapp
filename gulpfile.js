@@ -111,6 +111,8 @@ gulp.task('deps', [
 });
 
 gulp.task('sass', function () {
+    gulp.src(['bower_components/Materialize/sass/**/*'])
+        .pipe(gulp.dest('scss/third-party/materialize'));
     gulp.src('scss/app.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('css'));
@@ -118,6 +120,19 @@ gulp.task('sass', function () {
 
 gulp.task('install', ['deps', 'sass'], function () {
 
+});
+
+gulp.task('build', ['deps', 'sass'], function() {
+    gulp.src('css/**/*.*')
+        .pipe(gulp.dest('dist/css'));
+    gulp.src('images/**/*.*')
+        .pipe(gulp.dest('dist/images'));
+    gulp.src('js/**/*.*')
+        .pipe(gulp.dest('dist/js'));
+    gulp.src('locales/**/*.*')
+        .pipe(gulp.dest('dist/locales'));
+    gulp.src('index.html')
+        .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('default',function() {

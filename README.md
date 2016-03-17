@@ -4,6 +4,62 @@ Germany Says Welcome Web Application
 The web application of the "Germany Says Welcome" project is a variant of the android app for other devices including
 desktops and more general mobiles.
 
+Getting started
+---------------
+
+The web app can be built from the repository on any node.js enabled system. Once built, the web app is an HTML+JS 
+only application and uses the general Germany Says Welcome backend server. Node.js is not required to run the web app,
+it is only required for the build process.
+
+Building the app
+================
+
+Install node.js for your operating system and check if the `npm` command is available.
+   
+    # npm -version
+    3.3.12 
+
+If you need to install node.js, give this page a try:
+
+[https://nodejs.org/en/download/package-manager/](https://nodejs.org/en/download/package-manager/)
+
+With node.js available make sure, the commands "bower" and "gulp" are installed globally. Install them with these
+commands:
+
+    # npm install bower -g
+    ...
+    # npm install gulp -g
+    ...
+
+Clone this repository to a local directory. Do not use your super user account, on some systems
+bower does not run as "root".
+
+    # git clone https://github.com/socialc0de/germany-says-welcome-webapp.git
+    ....
+    # cd germany-says-welcome
+
+Install the Javascript dependencies with bower (this can take a while to finish).
+    
+    # bower install 
+    
+Now start the build process by:
+
+    # gulp build
+    
+The web app can be found in the directory `dist` and can be deployed to any web server. The file "index.html" is
+the start page. To use your own backend server, make the URLs in the following files point to your server:
+ 
+    js/app/data/EmergencyAPI.js
+    js/app/data/FAQAPI.js
+    js/app/data/PhrasebookAPI.js
+    js/app/data/POIAPI.js
+
+
+Getting involved as a developer
+-------------------------------
+
+The following documentation is meant to get you started as a developer contributing to the project.
+
 Overview
 --------
 
@@ -22,12 +78,6 @@ comprehensive we decided against the use of React and introduce a very tiny <b>R
 Dependency management is done through <b>requirejs</b> which does not need any bundling/compiling, is pretty easy to debug
 and comes with a quite simple syntax. For more information on requirejs see [http://requirejs.org/](http://requirejs.org/).
 
-Install (with [Apturl](https://wiki.ubuntuusers.de/apturl))
------------------------------------------------------------
-|Node-JS|
-|-------------|
-|[![Apturl Bild](http://media-cdn.ubuntu-de.org/wiki/attachments/07/17/button.png)](apt://nodejs)|
-
 Getting started
 ---------------
 
@@ -35,8 +85,13 @@ To setup your development environment clone this repository and start by setting
 
     # npm install
 
-This should create a directory `node_modules` with all the node dependencies in place. After that you can install the
-bower dependencies by calling:
+This should create a directory `node_modules` with all the node dependencies in place. 
+
+Make sure you have `bower` and `gulp` installed globally (s. "Building the app"). If you do not want to
+use global bower and gulp, run bower and gulp from the `node_modules` sub directory e.g. 
+`node node_modules/bower/bin/bower install` instead of `bower install`.
+
+Install the bower dependencies by calling:
 
     # bower install
 
@@ -44,6 +99,8 @@ Another directory called `bower_components` should be created containing all the
 The last step is to copy all the dependencies to their places in the website:
 
     # gulp deps
+    ...
+    # gulp sass
 
 All third-party dependencies are kept in directories called `third-party` in resource directories like `js/third-party`
 and `css/third-party`. Automatically generated code and content is not kept in the GIT repository and excluded through
