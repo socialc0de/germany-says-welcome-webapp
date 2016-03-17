@@ -38,9 +38,12 @@ bower does not run as "root".
     ....
     # cd germany-says-welcome
 
-Install the Javascript dependencies with bower (this can take a while to finish).
+Install the required node modules and library dependencies with npm and bower (this can take a while to finish).
     
-    # bower install 
+    # npm install
+    ...
+    # bower install
+    ...
     
 Now start the build process by:
 
