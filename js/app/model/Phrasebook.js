@@ -5,17 +5,16 @@ define(['data/PhrasebookAPI', 'underscore', 'hoverboard'], function (API, _, Hov
     var catRegex = /(\d+)\/?$/;
 
     var haveLocalStorage = function () {
-        if (window.localStorage) {
+        // Caching deactivated for now. JOB, 2016-04-05
+        /*if (window.localStorage) {
             try {
                 window.localStorage.setItem("GSW.test", "1");
                 window.localStorage.removeItem("GSW.test");
                 return true;
             } catch (e) {
             }
-        }
+        }*/
         return false;
-
-
     };
 
     function Phrasebook() {
